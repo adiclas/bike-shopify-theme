@@ -60,6 +60,9 @@
     "choose-bike": {
       "type": "choose-bike",
       "settings": {
+        "collection": "bike",
+        "products_to_show": 3,
+        "columns": "3",
         "cta_label": "Choose a Bikes",
         "cta_link": ""
       }
