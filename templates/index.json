@@ -74,8 +74,8 @@
       ],
       "settings": {
         "collection": "bike",
-        "products_to_show": 3,
-        "columns": "3",
+        "products_to_show": 4,
+        "columns": "4",
         "cta_label": "Choose a Bikes",
         "cta_link": ""
       }
