@@ -10,10 +10,16 @@
   <div class="hero__quickbar">
     <div class="container hero__quickbar-inner">
       {% for block in section.blocks %}
-        <a class="quick-card" href="{{ block.settings.link }}" {{ block.shopify_attributes }}>
-          <span class="quick-card__label">{{ block.settings.label }}</span>
-          <span class="quick-card__title">{{ block.settings.heading }}</span>
-          <span class="quick-card__text">{{ block.settings.text }}</span>
+        <a class="quick-card{% if block.settings.image == blank %} quick-card--empty{% endif %}" href="{{ block.settings.link }}" {{ block.shopify_attributes }}>
+          {% if block.settings.image != blank %}
+            <div class="quick-card__media">{{ block.settings.image | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '600,900,1200', alt: block.settings.label }}</div>
+            <div class="quick-card__overlay"></div>
+          {% endif %}
+          <div class="quick-card__content">
+            <span class="quick-card__label">{{ block.settings.label }}</span>
+            <span class="quick-card__title">{{ block.settings.heading }}</span>
+            <span class="quick-card__text">{{ block.settings.text }}</span>
+          </div>
         </a>
       {% endfor %}
     </div>
@@ -37,6 +43,7 @@
       "type": "card",
       "name": "Quick Card",
       "settings": [
+        { "type": "image_picker", "id": "image", "label": "Hintergrundbild" },
         { "type": "text", "id": "label", "label": "Label", "default": "Men" },
         { "type": "text", "id": "heading", "label": "Titel", "default": "$50" },
         { "type": "text", "id": "text", "label": "Text", "default": "Basic Clothes & Activewear" },
