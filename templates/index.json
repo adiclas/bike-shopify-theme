@@ -87,9 +87,9 @@
     "contact-strip": {
       "type": "contact-strip",
       "settings": {
-        "logo_top": "GoShop",
-        "logo_sub": "Bikes",
-        "description": "GoShop is one of the most powerful and Feature Loaded Premium Shopify themes that smoothly work with any kind of store.",
+        "logo_top": "Bike",
+        "logo_sub": "Mailorder",
+        "description": "Bikemailorder is one of the most powerful and Feature Loaded Premium Shopify themes that smoothly work with any kind of store.",
         "hours_heading": "Opening hours"
       }
     }

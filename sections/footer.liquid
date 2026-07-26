@@ -2,8 +2,12 @@
   <div class="container site-footer__grid">
     <div class="site-footer__col">
       <a class="site-logo site-logo--footer" href="{{ routes.root_url }}">
-        <span class="site-logo__mark">↗</span>
-        <span class="site-logo__text"><strong>{{ section.settings.logo_top }}</strong><em>{{ section.settings.logo_sub }}</em></span>
+        {% if section.settings.logo != blank %}
+          <img class="site-logo__image" src="{{ section.settings.logo | image_url: width: 360 }}" alt="{{ shop.name | escape }}" width="180" height="40" loading="lazy">
+        {% else %}
+          <span class="site-logo__mark">↗</span>
+          <span class="site-logo__text"><strong>{{ section.settings.logo_top }}</strong><em>{{ section.settings.logo_sub }}</em></span>
+        {% endif %}
       </a>
       <p>{{ section.settings.description }}</p>
     </div>
@@ -31,8 +35,9 @@
   "name": "Footer",
   "max_blocks": 3,
   "settings": [
-    { "type": "text", "id": "logo_top", "label": "Logo (Teil 1)", "default": "GoShop" },
-    { "type": "text", "id": "logo_sub", "label": "Logo (Teil 2)", "default": "Bikes" },
+    { "type": "image_picker", "id": "logo", "label": "Logo" },
+    { "type": "text", "id": "logo_top", "label": "Logo (Teil 1)", "default": "Bike" },
+    { "type": "text", "id": "logo_sub", "label": "Logo (Teil 2)", "default": "Mailorder" },
     { "type": "textarea", "id": "description", "label": "Beschreibung", "default": "Customer service is our passion, available Mon–Fri." }
   ],
   "blocks": [

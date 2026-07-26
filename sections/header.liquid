@@ -13,8 +13,12 @@
     <div class="container site-header__top">
       <button class="mobile-menu-button" type="button" aria-expanded="false" aria-controls="MobileNavigation" data-menu-toggle><span></span><span></span><span></span><span class="visually-hidden">Menü öffnen</span></button>
       <a class="site-logo" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
-        <span class="site-logo__mark">↗</span>
-        <span class="site-logo__text"><strong>{{ section.settings.logo_top }}</strong><em>{{ section.settings.logo_sub }}</em></span>
+        {% if section.settings.logo != blank %}
+          <img class="site-logo__image" src="{{ section.settings.logo | image_url: width: 360 }}" alt="{{ shop.name | escape }}" width="180" height="40" loading="eager">
+        {% else %}
+          <span class="site-logo__mark">↗</span>
+          <span class="site-logo__text"><strong>{{ section.settings.logo_top }}</strong><em>{{ section.settings.logo_sub }}</em></span>
+        {% endif %}
       </a>
       <form class="site-search" action="{{ routes.search_url }}" method="get" role="search">
         <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ section.settings.search_placeholder }}" aria-label="Suchen">
@@ -44,8 +48,9 @@
   "name": "Header",
   "settings": [
     { "type": "text", "id": "announcement", "label": "Ankündigung", "default": "Versandkostenfrei ab 99 € · 30 Tage Rückgabe" },
-    { "type": "text", "id": "logo_top", "label": "Logo (Teil 1)", "default": "GoShop" },
-    { "type": "text", "id": "logo_sub", "label": "Logo (Teil 2)", "default": "Bikes" },
+    { "type": "image_picker", "id": "logo", "label": "Logo" },
+    { "type": "text", "id": "logo_top", "label": "Logo (Teil 1)", "default": "Bike" },
+    { "type": "text", "id": "logo_sub", "label": "Logo (Teil 2)", "default": "Mailorder" },
     { "type": "text", "id": "search_placeholder", "label": "Such-Placeholder", "default": "Wonach suchst du?" },
     { "type": "link_list", "id": "menu", "label": "Menü", "default": "main-menu" }
   ]
