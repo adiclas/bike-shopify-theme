@@ -11,6 +11,43 @@
   "sections": {
     "hero": {
       "type": "hero",
+      "blocks": {
+        "card_qd3ft6": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/bycicl.png",
+            "label": "Trekkingrad",
+            "heading": "$799",
+            "text": "Gratis Helm",
+            "link": ""
+          }
+        },
+        "card_y8wRC6": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/bycicl.png",
+            "label": "Trekkingrad",
+            "heading": "$799",
+            "text": "Gratis Helm",
+            "link": ""
+          }
+        },
+        "card_hPwHWj": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/bycicl.png",
+            "label": "Trekkingrad",
+            "heading": "$799",
+            "text": "Gratis Helm",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "card_qd3ft6",
+        "card_y8wRC6",
+        "card_hPwHWj"
+      ],
       "settings": {
         "image": "shopify://shop_images/biking-on-city-streets.jpg",
         "eyebrow": "PLATZANGST",
