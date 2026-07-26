@@ -1,13 +1,70 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
-    "hero": { "type": "hero", "settings": {} },
-    "choose-bike": { "type": "choose-bike", "settings": {} },
-    "men-women": { "type": "men-women", "settings": {} },
-    "brand-strip": { "type": "brand-strip", "settings": {} },
-    "special-offers": { "type": "offers", "settings": {} },
-    "testimonials": { "type": "testimonials", "settings": {} },
-    "news": { "type": "news", "settings": {} },
-    "contact-strip": { "type": "contact-strip", "settings": {} }
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "image": "shopify://shop_images/biking-on-city-streets.jpg",
+        "eyebrow": "PLATZANGST",
+        "heading": "Bundle Deals",
+        "subheading": "Gratis Quad Lock Mount beimKauf einer Top Tube 2.0!",
+        "cta_label": "Deal Entdecken",
+        "cta_link": ""
+      }
+    },
+    "choose-bike": {
+      "type": "choose-bike",
+      "settings": {
+        "cta_label": "Choose a Bikes",
+        "cta_link": ""
+      }
+    },
+    "men-women": {
+      "type": "men-women",
+      "settings": {}
+    },
+    "brand-strip": {
+      "type": "brand-strip",
+      "settings": {}
+    },
+    "special-offers": {
+      "type": "offers",
+      "settings": {}
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "settings": {}
+    },
+    "news": {
+      "type": "news",
+      "settings": {}
+    },
+    "contact-strip": {
+      "type": "contact-strip",
+      "settings": {
+        "logo_top": "GoShop",
+        "logo_sub": "Bikes",
+        "description": "GoShop is one of the most powerful and Feature Loaded Premium Shopify themes that smoothly work with any kind of store.",
+        "hours_heading": "Opening hours"
+      }
+    }
   },
-  "order": ["hero", "choose-bike", "men-women", "brand-strip", "special-offers", "testimonials", "news", "contact-strip"]
+  "order": [
+    "hero",
+    "choose-bike",
+    "men-women",
+    "brand-strip",
+    "special-offers",
+    "testimonials",
+    "news",
+    "contact-strip"
+  ]
 }
