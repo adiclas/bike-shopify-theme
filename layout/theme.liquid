@@ -6,10 +6,38 @@
     <link rel="canonical" href="{{ canonical_url }}">
     <title>{% if page_title %}{{ page_title }}{% else %}{{ shop.name }}{% endif %}</title>
     {% if page_description %}<meta name="description" content="{{ page_description | escape }}">{% endif %}
+    {% liquid
+      assign body_font = settings.font_body
+      assign heading_font = settings.font_heading
+    %}
+    <style>
+      {{ body_font | font_face: font_display: 'swap' }}
+      {{ heading_font | font_face: font_display: 'swap' }}
+      :root {
+        --font-body: {{ body_font.family }}, {{ body_font.fallback_families }};
+        --font-heading: {{ heading_font.family }}, {{ heading_font.fallback_families }};
+        --color-background: {{ settings.color_background }};
+        --color-text: {{ settings.color_text }};
+        --color-accent: {{ settings.color_accent }};
+        --color-surface: {{ settings.color_surface }};
+        --color-muted: {{ settings.color_muted }};
+        --color-header: {{ settings.color_header }};
+        --color-header-text: #ffffff;
+        --color-border: color-mix(in srgb, var(--color-text) 14%, transparent);
+      }
+      {% case settings.color_preset %}
+        {% when 'velocity' %}
+          :root { --color-background: #ffffff; --color-text: #17191b; --color-accent: #e62b31; --color-surface: #f4f5f5; --color-muted: #687076; --color-header: #121618; --color-header-text: #ffffff; }
+        {% when 'alpine' %}
+          :root { --color-background: #f4f6f1; --color-text: #14231e; --color-accent: #c7f238; --color-surface: #ffffff; --color-muted: #64726d; --color-header: #14211e; --color-header-text: #ffffff; }
+        {% when 'sunset' %}
+          :root { --color-background: #fff8f1; --color-text: #241713; --color-accent: #ff633d; --color-surface: #ffffff; --color-muted: #806f68; --color-header: #241713; --color-header-text: #ffffff; }
+      {% endcase %}
+    </style>
     {{ 'theme.css' | asset_url | stylesheet_tag }}
     {{ content_for_header }}
   </head>
-  <body class="template-{{ template.name | handle }}">
+  <body class="template-{{ template.name | handle }} color-preset-{{ settings.color_preset }}">
     <a class="skip-link" href="#MainContent">Zum Inhalt springen</a>
     {% section 'announcement-bar' %}
     {% section 'header' %}

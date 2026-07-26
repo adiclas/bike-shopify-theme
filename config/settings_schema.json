@@ -8,13 +8,29 @@
     "theme_support_email": "theme-support@example.com"
   },
   {
-    "name": "Farben",
+    "name": "Designsystem",
     "settings": [
-      { "type": "color", "id": "color_background", "label": "Hintergrund", "default": "#f5f6f4" },
-      { "type": "color", "id": "color_text", "label": "Text", "default": "#12221f" },
-      { "type": "color", "id": "color_accent", "label": "Akzent", "default": "#d6ff38" },
-      { "type": "color", "id": "color_surface", "label": "Flächen", "default": "#ffffff" },
-      { "type": "color", "id": "color_muted", "label": "Sekundärtext", "default": "#66736f" }
+      {
+        "type": "select",
+        "id": "color_preset",
+        "label": "Farbwelt",
+        "info": "Wechselt die Farben im gesamten Theme.",
+        "options": [
+          { "value": "velocity", "label": "Velocity Red" },
+          { "value": "alpine", "label": "Alpine Lime" },
+          { "value": "sunset", "label": "Sunset Orange" },
+          { "value": "custom", "label": "Eigene Farben" }
+        ],
+        "default": "velocity"
+      },
+      { "type": "header", "content": "Eigene Farben" },
+      { "type": "paragraph", "content": "Diese Werte werden verwendet, wenn „Eigene Farben“ ausgewählt ist." },
+      { "type": "color", "id": "color_background", "label": "Hintergrund", "default": "#ffffff" },
+      { "type": "color", "id": "color_text", "label": "Text", "default": "#17191b" },
+      { "type": "color", "id": "color_accent", "label": "Akzent", "default": "#e62b31" },
+      { "type": "color", "id": "color_surface", "label": "Flächen", "default": "#f4f5f5" },
+      { "type": "color", "id": "color_muted", "label": "Sekundärtext", "default": "#687076" },
+      { "type": "color", "id": "color_header", "label": "Header", "default": "#121618" }
     ]
   },
   {
