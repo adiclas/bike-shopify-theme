@@ -10,7 +10,7 @@
     </div>
   </div>
   <div class="site-header__main">
-    <div class="container site-header__top">
+    <div class="container site-header__row">
       <button class="mobile-menu-button" type="button" aria-expanded="false" aria-controls="MobileNavigation" data-menu-toggle><span></span><span></span><span></span><span class="visually-hidden">Menü öffnen</span></button>
       <a class="site-logo" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
         {% if section.settings.logo != blank %}
@@ -20,22 +20,45 @@
           <span class="site-logo__text"><strong>{{ section.settings.logo_top }}</strong><em>{{ section.settings.logo_sub }}</em></span>
         {% endif %}
       </a>
-      <form class="site-search" action="{{ routes.search_url }}" method="get" role="search">
-        <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ section.settings.search_placeholder }}" aria-label="Suchen">
-        <button type="submit" aria-label="Suchen">↗</button>
-      </form>
+      <nav class="site-nav" id="DesktopNavigation" aria-label="Hauptnavigation">
+        <ul class="site-nav__list">
+          {% for link in section.settings.menu.links %}
+            <li><a class="site-nav__link" href="{{ link.url }}">{{ link.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </nav>
       <div class="site-actions">
-        <a href="{{ routes.account_url }}" class="site-action"><span class="site-action__icon">◯</span><span class="site-action__label">Konto</span></a>
-        <a href="{{ routes.cart_url }}" class="site-action" data-cart-link><span class="site-action__icon">◌</span><span class="site-action__label">Warenkorb</span><b class="cart-count">{{ cart.item_count }}</b></a>
+        <a href="{{ routes.account_url }}" class="site-action">
+          <svg class="site-action__icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <circle cx="12" cy="8" r="4"></circle>
+            <path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"></path>
+          </svg>
+          <span class="site-action__label">Konto</span>
+        </a>
+        <a href="{{ routes.cart_url }}" class="site-action" data-cart-link>
+          <svg class="site-action__icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <path d="M5 7h14l-1.5 10.2a2 2 0 0 1-2 1.8H8.5a2 2 0 0 1-2-1.8L5 7z"></path>
+            <path d="M9 7V5a3 3 0 0 1 6 0v2"></path>
+          </svg>
+          <span class="site-action__label">Warenkorb</span>
+          <b class="cart-count">{{ cart.item_count }}</b>
+        </a>
+        <button type="button" class="site-action site-action--search" data-search-toggle aria-expanded="false" aria-label="Suche öffnen">
+          <svg class="site-action__icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <circle cx="11" cy="11" r="7"></circle>
+            <path d="m20 20-3.5-3.5"></path>
+          </svg>
+        </button>
       </div>
     </div>
-    <nav class="site-nav" id="DesktopNavigation" aria-label="Hauptnavigation">
-      <div class="container site-nav__inner">
-        {% for link in section.settings.menu.links %}
-          <a class="site-nav__link" href="{{ link.url }}">{{ link.title }}</a>
-        {% endfor %}
+    <form class="site-search" data-search-form action="{{ routes.search_url }}" method="get" role="search" hidden>
+      <div class="container site-search__inner">
+        <label class="visually-hidden" for="SiteSearch">{{ section.settings.search_placeholder }}</label>
+        <span class="site-search__icon" aria-hidden="true">⌕</span>
+        <input id="SiteSearch" type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ section.settings.search_placeholder }}" aria-label="Suchen">
+        <button type="submit" class="site-search__submit" aria-label="Suchen">↗</button>
       </div>
-    </nav>
+    </form>
   </div>
   <div class="mobile-navigation" id="MobileNavigation" data-mobile-navigation>
     <div class="mobile-navigation__head"><strong>Menü</strong><button type="button" data-menu-toggle aria-label="Menü schließen">×</button></div>
