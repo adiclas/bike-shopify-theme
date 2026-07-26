@@ -1,0 +1,40 @@
+<section class="main-product section-spacing" data-product-section>
+  <div class="container product-layout">
+    <div class="product-gallery">
+      {% for media in product.media %}
+        <div class="product-gallery__item">{{ media.preview_image | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '500,900,1200,1600', alt: media.alt }}</div>
+      {% else %}
+        <div class="product-gallery__item product-gallery__placeholder">Produktbild</div>
+      {% endfor %}
+    </div>
+    <div class="product-info">
+      {% if product.vendor != blank %}<p class="eyebrow">{{ product.vendor }}</p>{% endif %}
+      <h1>{{ product.title }}</h1>
+      <div class="product-price" data-product-price>
+        <strong>{{ product.selected_or_first_available_variant.price | money }}</strong>
+        {% if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}<s>{{ product.selected_or_first_available_variant.compare_at_price | money }}</s>{% endif %}
+      </div>
+      {% if product.description != blank %}<div class="product-description rte">{{ product.description }}</div>{% endif %}
+      {% form 'product', product, class: 'product-form' %}
+        {% unless product.has_only_default_variant %}
+          <label for="Variant-{{ section.id }}">Variante</label>
+          <select id="Variant-{{ section.id }}" name="id" data-variant-select>
+            {% for variant in product.variants %}<option value="{{ variant.id }}" data-price="{{ variant.price | money | escape }}"{% unless variant.available %} disabled{% endunless %}{% if variant == product.selected_or_first_available_variant %} selected{% endif %}>{{ variant.title }}{% unless variant.available %} · Ausverkauft{% endunless %}</option>{% endfor %}
+          </select>
+        {% else %}
+          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+        {% endunless %}
+        <div class="quantity-row"><label for="Quantity-{{ section.id }}">Menge</label><input id="Quantity-{{ section.id }}" type="number" name="quantity" value="1" min="1"></div>
+        <button class="button button--accent button--wide" type="submit"{% unless product.selected_or_first_available_variant.available %} disabled{% endunless %}>{% if product.selected_or_first_available_variant.available %}In den Warenkorb{% else %}Ausverkauft{% endif %}</button>
+      {% endform %}
+      <div class="product-assurances"><span>✓ Sichere Zahlung</span><span>✓ 30 Tage Rückgabe</span><span>✓ Persönlicher Support</span></div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Produktinformationen",
+  "settings": []
+}
+{% endschema %}

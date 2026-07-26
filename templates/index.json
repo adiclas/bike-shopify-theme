@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "hero": { "type": "hero", "settings": {} },
+    "services": { "type": "service-strip", "settings": {}, "blocks": { "service-1": { "type": "benefit", "settings": { "heading": "Echte Beratung", "text": "Von Menschen, die selbst fahren." } }, "service-2": { "type": "benefit", "settings": { "heading": "Schneller Versand", "text": "Direkt aus unserem Lager." } }, "service-3": { "type": "benefit", "settings": { "heading": "30 Tage testen", "text": "Einfach und transparent zurückgeben." } } }, "block_order": ["service-1", "service-2", "service-3"] },
+    "categories": { "type": "category-grid", "settings": {}, "blocks": { "category-1": { "type": "category", "settings": { "kicker": "Wild & technisch", "heading": "Mountainbikes" } }, "category-2": { "type": "category", "settings": { "kicker": "Schnell & leicht", "heading": "Gravel & Road" } }, "category-3": { "type": "category", "settings": { "kicker": "Mehr Reichweite", "heading": "E-Bikes" } } }, "block_order": ["category-1", "category-2", "category-3"] },
+    "highlights": { "type": "featured-collection", "settings": { "heading": "Aktuelle Highlights", "products_to_show": 8, "columns": "4" } }
+  },
+  "order": ["hero", "services", "categories", "highlights"]
+}

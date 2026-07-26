@@ -1,0 +1,31 @@
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-lead"><p class="eyebrow">Bleib auf dem Trail</p><h2>{{ section.settings.heading }}</h2>{% form 'customer', class: 'newsletter-form' %}<input type="hidden" name="contact[tags]" value="newsletter"><label class="visually-hidden" for="NewsletterEmail">E-Mail-Adresse</label><input id="NewsletterEmail" type="email" name="contact[email]" placeholder="Deine E-Mail-Adresse" required><button class="button button--accent" type="submit">Anmelden ↗</button>{% endform %}</div>
+    <div class="footer-grid">
+      <div><a class="site-logo site-logo--footer" href="{{ routes.root_url }}"><span class="site-logo__mark">↗</span><span>{{ settings.logo_text }}</span></a><p>{{ section.settings.description }}</p><p class="footer-support">{{ settings.support_text }}</p></div>
+      {% for block in section.blocks %}
+        <div {{ block.shopify_attributes }}><h3>{{ block.settings.heading }}</h3>{% if block.settings.menu != blank %}<ul>{% for link in block.settings.menu.links %}<li><a href="{{ link.url }}">{{ link.title }}</a></li>{% endfor %}</ul>{% endif %}</div>
+      {% endfor %}
+    </div>
+    <div class="footer-bottom"><span>© {{ 'now' | date: '%Y' }} {{ shop.name }}</span><div>{% for type in shop.enabled_payment_types %}{{ type | payment_type_svg_tag }}{% endfor %}</div></div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "max_blocks": 3,
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Newsletter-Titel", "default": "Neue Rides. Bessere Stories. Keine Langeweile." },
+    { "type": "textarea", "id": "description", "label": "Beschreibung", "default": "Bikes, Komponenten und Bekleidung für alle, die lieber draußen als drinnen sind." }
+  ],
+  "blocks": [{
+    "type": "menu",
+    "name": "Menüspalte",
+    "settings": [
+      { "type": "text", "id": "heading", "label": "Titel", "default": "Service" },
+      { "type": "link_list", "id": "menu", "label": "Menü" }
+    ]
+  }]
+}
+{% endschema %}

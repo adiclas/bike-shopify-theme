@@ -1,0 +1,16 @@
+{
+  "general": {
+    "search": "Suchen",
+    "cart": "Warenkorb",
+    "account": "Konto",
+    "close": "Schließen",
+    "view_all": "Alle anzeigen",
+    "from": "Ab",
+    "sale": "Sale",
+    "add_to_cart": "In den Warenkorb",
+    "sold_out": "Ausverkauft",
+    "quantity": "Menge",
+    "subtotal": "Zwischensumme",
+    "checkout": "Zur Kasse"
+  }
+}

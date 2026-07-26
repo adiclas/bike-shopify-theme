@@ -1,0 +1,58 @@
+<header class="site-header" data-header>
+  <div class="container site-header__top">
+    <button class="mobile-menu-button" type="button" aria-expanded="false" aria-controls="MobileNavigation" data-menu-toggle><span></span><span></span><span></span><span class="visually-hidden">Menü öffnen</span></button>
+    <a class="site-logo" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
+      {% if settings.logo != blank %}
+        {{ settings.logo | image_url: width: 420 | image_tag: widths: '140,210,420', class: 'site-logo__image', alt: shop.name }}
+      {% else %}
+        <span class="site-logo__mark">↗</span><span>{{ settings.logo_text }}</span>
+      {% endif %}
+    </a>
+    <form class="site-search" action="{{ routes.search_url }}" method="get" role="search">
+      <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="Wonach suchst du?" aria-label="Suchen">
+      <button type="submit" aria-label="Suchen">↗</button>
+    </form>
+    <div class="site-actions">
+      <a href="{{ routes.account_url }}" class="site-action site-action--account"><span class="site-action__icon">◯</span><span class="site-action__label">Konto</span></a>
+      <a href="{{ routes.cart_url }}" class="site-action" data-cart-link><span class="site-action__icon">◌</span><span class="site-action__label">Warenkorb</span><b class="cart-count">{{ cart.item_count }}</b></a>
+    </div>
+  </div>
+  <nav class="site-nav" id="DesktopNavigation" aria-label="Hauptnavigation">
+    <div class="container site-nav__inner">
+      {% for link in section.settings.menu.links %}
+        <div class="nav-item{% if link.links != blank %} nav-item--has-children{% endif %}">
+          <a href="{{ link.url }}">{{ link.title }}</a>
+          {% if link.links != blank %}
+            <div class="mega-menu">
+              <div class="mega-menu__grid">
+                {% for child_link in link.links %}
+                  <div class="mega-menu__column">
+                    <a class="mega-menu__title" href="{{ child_link.url }}">{{ child_link.title }}</a>
+                    {% if child_link.links != blank %}
+                      {% for grandchild_link in child_link.links %}<a href="{{ grandchild_link.url }}">{{ grandchild_link.title }}</a>{% endfor %}
+                    {% endif %}
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </nav>
+  <div class="mobile-navigation" id="MobileNavigation" data-mobile-navigation>
+    <div class="mobile-navigation__head"><strong>Menü</strong><button type="button" data-menu-toggle aria-label="Menü schließen">×</button></div>
+    {% for link in section.settings.menu.links %}
+      <details><summary>{{ link.title }}<span>+</span></summary><div class="mobile-navigation__links"><a href="{{ link.url }}">Alle anzeigen</a>{% for child_link in link.links %}<a href="{{ child_link.url }}">{{ child_link.title }}</a>{% endfor %}</div></details>
+    {% endfor %}
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    { "type": "link_list", "id": "menu", "label": "Menü", "default": "main-menu" }
+  ]
+}
+{% endschema %}
