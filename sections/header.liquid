@@ -5,7 +5,7 @@
       {% if settings.logo != blank %}
         {{ settings.logo | image_url: width: 420 | image_tag: widths: '140,210,420', class: 'site-logo__image', alt: shop.name }}
       {% else %}
-        <span class="site-logo__mark">↗</span><span>{{ settings.logo_text }}</span>
+        <img src="{{ 'bmo-logo.png' | asset_url }}" width="300" height="48" class="site-logo__image" alt="{{ shop.name }}" loading="eager">
       {% endif %}
     </a>
     <form class="site-search" action="{{ routes.search_url }}" method="get" role="search">
