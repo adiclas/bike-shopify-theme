@@ -27,11 +27,11 @@
       }
       {% case settings.color_preset %}
         {% when 'velocity' %}
-          :root { --color-background: #ffffff; --color-text: #17191b; --color-accent: #e62b31; --color-surface: #f4f5f5; --color-muted: #687076; --color-header: #121618; --color-header-text: #ffffff; }
+          :root { --color-background: #ffffff; --color-text: #212121; --color-accent: #e54e26; --color-surface: #f4f5f5; --color-muted: #6e7378; --color-header: #1a1a1a; --color-header-text: #ffffff; --color-script: 'Playfair Display', Georgia, serif; }
         {% when 'alpine' %}
-          :root { --color-background: #f4f6f1; --color-text: #14231e; --color-accent: #c7f238; --color-surface: #ffffff; --color-muted: #64726d; --color-header: #14211e; --color-header-text: #ffffff; }
+          :root { --color-background: #f4f6f1; --color-text: #14231e; --color-accent: #c7f238; --color-surface: #ffffff; --color-muted: #64726d; --color-header: #14211e; --color-header-text: #ffffff; --color-script: 'Playfair Display', Georgia, serif; }
         {% when 'sunset' %}
-          :root { --color-background: #fff8f1; --color-text: #241713; --color-accent: #ff633d; --color-surface: #ffffff; --color-muted: #806f68; --color-header: #241713; --color-header-text: #ffffff; }
+          :root { --color-background: #fff8f1; --color-text: #241713; --color-accent: #e54e26; --color-surface: #ffffff; --color-muted: #806f68; --color-header: #241713; --color-header-text: #ffffff; --color-script: 'Playfair Display', Georgia, serif; }
       {% endcase %}
     </style>
     {{ 'theme.css' | asset_url | stylesheet_tag }}

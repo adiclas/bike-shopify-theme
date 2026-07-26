@@ -1,0 +1,46 @@
+<section class="men-women section-spacing">
+  <div class="container men-women__grid">
+    {% for block in section.blocks %}
+      <a class="men-women__card" href="{{ block.settings.link }}" {{ block.shopify_attributes }}>
+        {% if block.settings.image != blank %}{{ block.settings.image | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '600,900,1200', alt: block.settings.title }}{% else %}<div class="men-women__placeholder"></div>{% endif %}
+        <div class="men-women__content">
+          <p class="eyebrow">Animated Jacket</p>
+          <h3>{{ block.settings.title }} <span class="accent">${{ block.settings.price }}</span></h3>
+          <ul>
+            {% for i in (1..3) %}<li>Lorem ipsum dolor sit amet.</li>{% endfor %}
+          </ul>
+          <div class="men-women__meta"><span>{{ block.settings.btn_label }}</span><em>{{ block.settings.btn_sub }}</em></div>
+        </div>
+      </a>
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Men & Women",
+  "max_blocks": 2,
+  "settings": [],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Karte",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Bild" },
+        { "type": "text", "id": "title", "label": "Titel", "default": "Men" },
+        { "type": "text", "id": "price", "label": "Preis", "default": "300" },
+        { "type": "text", "id": "btn_label", "label": "Button", "default": "Shop now" },
+        { "type": "text", "id": "btn_sub", "label": "Button-Hinweis", "default": "Men's" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "Men & Women",
+    "blocks": [
+      { "type": "card", "settings": { "title": "Men", "price": "300", "btn_label": "Shop now", "btn_sub": "Men's" } },
+      { "type": "card", "settings": { "title": "Women", "price": "200", "btn_label": "Shop now", "btn_sub": "Women's" } }
+    ]
+  }]
+}
+{% endschema %}

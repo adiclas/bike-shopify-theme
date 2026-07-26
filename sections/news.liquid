@@ -1,0 +1,49 @@
+<section class="news section-spacing">
+  <div class="container">
+    <header class="section-heading section-heading--center">
+      <p class="eyebrow">Latest Blog</p>
+      <h2>Latest news</h2>
+      <p class="section-heading__sub">Stay in the know</p>
+    </header>
+    <div class="news__grid">
+      {% for block in section.blocks %}
+        <article class="news__post" {{ block.shopify_attributes }}>
+          <p class="news__meta"><span>{{ block.settings.day }}</span><strong>{{ block.settings.month }}</strong> · {{ block.settings.year }}</p>
+          <h3>{{ block.settings.title }}</h3>
+          <p class="news__text">{{ block.settings.text }}</p>
+          <a class="news__cta" href="{{ block.settings.link }}">Read more ↗</a>
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "News",
+  "max_blocks": 3,
+  "settings": [],
+  "blocks": [
+    {
+      "type": "post",
+      "name": "Beitrag",
+      "settings": [
+        { "type": "text", "id": "day", "label": "Tag", "default": "12" },
+        { "type": "text", "id": "month", "label": "Monat", "default": "Feb" },
+        { "type": "text", "id": "year", "label": "Jahr", "default": "2025" },
+        { "type": "text", "id": "title", "label": "Titel", "default": "How to choose the best bike" },
+        { "type": "text", "id": "text", "label": "Text", "default": "Vitae platea donec senectus sed." },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "News",
+    "blocks": [
+      { "type": "post", "settings": { "title": "How to choose the best bike" } },
+      { "type": "post", "settings": { "title": "How to choose the best bike" } },
+      { "type": "post", "settings": { "title": "Beginner's guide to cycling" } }
+    ]
+  }]
+}
+{% endschema %}

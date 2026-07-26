@@ -26,11 +26,11 @@
       { "type": "header", "content": "Eigene Farben" },
       { "type": "paragraph", "content": "Diese Werte werden verwendet, wenn „Eigene Farben“ ausgewählt ist." },
       { "type": "color", "id": "color_background", "label": "Hintergrund", "default": "#ffffff" },
-      { "type": "color", "id": "color_text", "label": "Text", "default": "#17191b" },
-      { "type": "color", "id": "color_accent", "label": "Akzent", "default": "#e62b31" },
+      { "type": "color", "id": "color_text", "label": "Text", "default": "#212121" },
+      { "type": "color", "id": "color_accent", "label": "Akzent", "default": "#e54e26" },
       { "type": "color", "id": "color_surface", "label": "Flächen", "default": "#f4f5f5" },
-      { "type": "color", "id": "color_muted", "label": "Sekundärtext", "default": "#687076" },
-      { "type": "color", "id": "color_header", "label": "Header", "default": "#121618" }
+      { "type": "color", "id": "color_muted", "label": "Sekundärtext", "default": "#6e7378" },
+      { "type": "color", "id": "color_header", "label": "Header", "default": "#1a1a1a" }
     ]
   },
   {

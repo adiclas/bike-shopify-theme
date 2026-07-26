@@ -1,0 +1,31 @@
+<section class="contact-strip section-spacing">
+  <div class="container contact-strip__grid">
+    <div class="contact-strip__info">
+      <a class="site-logo site-logo--footer" href="{{ routes.root_url }}">
+        <span class="site-logo__mark">↗</span>
+        <span class="site-logo__text"><strong>{{ section.settings.logo_top }}</strong><em>{{ section.settings.logo_sub }}</em></span>
+      </a>
+      <p>{{ section.settings.description }}</p>
+    </div>
+    <div class="contact-strip__hours">
+      <h3>{{ section.settings.hours_heading }}</h3>
+      <ul>
+        <li><span>Mon – Fri</span><span>08:00 – 18:00</span></li>
+        <li><span>Saturday</span><span>09:00 – 14:00</span></li>
+        <li><span>Sunday</span><span>Closed</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Kontakt-Strip",
+  "settings": [
+    { "type": "text", "id": "logo_top", "label": "Logo (Teil 1)", "default": "GoShop" },
+    { "type": "text", "id": "logo_sub", "label": "Logo (Teil 2)", "default": "Bikes" },
+    { "type": "textarea", "id": "description", "label": "Beschreibung", "default": "GoShop is one of the most powerful and Feature Loaded Premium Shopify themes that smoothly work with any kind of store." },
+    { "type": "text", "id": "hours_heading", "label": "Stunden-Heading", "default": "Opening hours" }
+  ]
+}
+{% endschema %}

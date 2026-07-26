@@ -1,0 +1,46 @@
+<section class="testimonials section-spacing">
+  <div class="container">
+    <header class="section-heading section-heading--center">
+      <p class="eyebrow">Happy Clients</p>
+      <h2>They says</h2>
+    </header>
+    <div class="testimonials__grid">
+      {% for block in section.blocks %}
+        <article class="testimonial" {{ block.shopify_attributes }}>
+          <p class="testimonial__quote">“{{ block.settings.quote }}”</p>
+          <p class="testimonial__author">{{ block.settings.author }}</p>
+          <p class="testimonial__role">{{ block.settings.role }}</p>
+          <div class="testimonial__rating">★ ★ ★ ★ ★</div>
+        </article>
+      {% endfor %}
+    </div>
+    <div class="testimonials__cta"><a class="button button--accent" href="#">Bikes & Videos</a></div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Stimmen",
+  "max_blocks": 3,
+  "settings": [],
+  "blocks": [
+    {
+      "type": "quote",
+      "name": "Stimmen",
+      "settings": [
+        { "type": "textarea", "id": "quote", "label": "Zitat", "default": "Top notch services, plus outstanding multipurpose theme." },
+        { "type": "text", "id": "author", "label": "Autor", "default": "Lionel Messi" },
+        { "type": "text", "id": "role", "label": "Rolle", "default": "Happy Client" }
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "Stimmen",
+    "blocks": [
+      { "type": "quote", "settings": { "author": "Lionel Messi", "role": "Happy Client" } },
+      { "type": "quote", "settings": { "author": "Sara J. Stevens", "role": "Happy Client" } },
+      { "type": "quote", "settings": { "author": "Mark Johnson", "role": "Happy Client" } }
+    ]
+  }]
+}
+{% endschema %}

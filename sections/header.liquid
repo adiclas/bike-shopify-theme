@@ -1,50 +1,41 @@
 <header class="site-header" data-header>
-  <div class="container site-header__top">
-    <button class="mobile-menu-button" type="button" aria-expanded="false" aria-controls="MobileNavigation" data-menu-toggle><span></span><span></span><span></span><span class="visually-hidden">Menü öffnen</span></button>
-    <a class="site-logo" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
-      {% if settings.logo != blank %}
-        {{ settings.logo | image_url: width: 420 | image_tag: widths: '140,210,420', class: 'site-logo__image', alt: shop.name }}
-      {% else %}
-        <img src="{{ 'bmo-logo.png' | asset_url }}" width="300" height="48" class="site-logo__image" alt="{{ shop.name }}" loading="eager">
-      {% endif %}
-    </a>
-    <form class="site-search" action="{{ routes.search_url }}" method="get" role="search">
-      <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="Wonach suchst du?" aria-label="Suchen">
-      <button type="submit" aria-label="Suchen">↗</button>
-    </form>
-    <div class="site-actions">
-      <a href="{{ routes.account_url }}" class="site-action site-action--account"><span class="site-action__icon">◯</span><span class="site-action__label">Konto</span></a>
-      <a href="{{ routes.cart_url }}" class="site-action" data-cart-link><span class="site-action__icon">◌</span><span class="site-action__label">Warenkorb</span><b class="cart-count">{{ cart.item_count }}</b></a>
+  <div class="announcement-bar">
+    <div class="container announcement-bar__inner">
+      <span>{{ section.settings.announcement }}</span>
+      <dl class="announcement-bar__meta">
+        <div><dt>Welcome</dt><dd>to Bike Mailorder</dd></div>
+        <div><dt>Call Us</dt><dd>0 800 555 1234</dd></div>
+        <div><dt>Email</dt><dd>support@bikemailorder.test</dd></div>
+      </dl>
     </div>
   </div>
-  <nav class="site-nav" id="DesktopNavigation" aria-label="Hauptnavigation">
-    <div class="container site-nav__inner">
-      {% for link in section.settings.menu.links %}
-        <div class="nav-item{% if link.links != blank %} nav-item--has-children{% endif %}">
-          <a href="{{ link.url }}">{{ link.title }}</a>
-          {% if link.links != blank %}
-            <div class="mega-menu">
-              <div class="mega-menu__grid">
-                {% for child_link in link.links %}
-                  <div class="mega-menu__column">
-                    <a class="mega-menu__title" href="{{ child_link.url }}">{{ child_link.title }}</a>
-                    {% if child_link.links != blank %}
-                      {% for grandchild_link in child_link.links %}<a href="{{ grandchild_link.url }}">{{ grandchild_link.title }}</a>{% endfor %}
-                    {% endif %}
-                  </div>
-                {% endfor %}
-              </div>
-            </div>
-          {% endif %}
-        </div>
-      {% endfor %}
+  <div class="site-header__main">
+    <div class="container site-header__top">
+      <button class="mobile-menu-button" type="button" aria-expanded="false" aria-controls="MobileNavigation" data-menu-toggle><span></span><span></span><span></span><span class="visually-hidden">Menü öffnen</span></button>
+      <a class="site-logo" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
+        <span class="site-logo__mark">↗</span>
+        <span class="site-logo__text"><strong>{{ section.settings.logo_top }}</strong><em>{{ section.settings.logo_sub }}</em></span>
+      </a>
+      <form class="site-search" action="{{ routes.search_url }}" method="get" role="search">
+        <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ section.settings.search_placeholder }}" aria-label="Suchen">
+        <button type="submit" aria-label="Suchen">↗</button>
+      </form>
+      <div class="site-actions">
+        <a href="{{ routes.account_url }}" class="site-action"><span class="site-action__icon">◯</span><span class="site-action__label">Konto</span></a>
+        <a href="{{ routes.cart_url }}" class="site-action" data-cart-link><span class="site-action__icon">◌</span><span class="site-action__label">Warenkorb</span><b class="cart-count">{{ cart.item_count }}</b></a>
+      </div>
     </div>
-  </nav>
+    <nav class="site-nav" id="DesktopNavigation" aria-label="Hauptnavigation">
+      <div class="container site-nav__inner">
+        {% for link in section.settings.menu.links %}
+          <a class="site-nav__link" href="{{ link.url }}">{{ link.title }}</a>
+        {% endfor %}
+      </div>
+    </nav>
+  </div>
   <div class="mobile-navigation" id="MobileNavigation" data-mobile-navigation>
     <div class="mobile-navigation__head"><strong>Menü</strong><button type="button" data-menu-toggle aria-label="Menü schließen">×</button></div>
-    {% for link in section.settings.menu.links %}
-      <details><summary>{{ link.title }}<span>+</span></summary><div class="mobile-navigation__links"><a href="{{ link.url }}">Alle anzeigen</a>{% for child_link in link.links %}<a href="{{ child_link.url }}">{{ child_link.title }}</a>{% endfor %}</div></details>
-    {% endfor %}
+    {% for link in section.settings.menu.links %}<a class="mobile-navigation__link" href="{{ link.url }}">{{ link.title }}</a>{% endfor %}
   </div>
 </header>
 
@@ -52,6 +43,10 @@
 {
   "name": "Header",
   "settings": [
+    { "type": "text", "id": "announcement", "label": "Ankündigung", "default": "Versandkostenfrei ab 99 € · 30 Tage Rückgabe" },
+    { "type": "text", "id": "logo_top", "label": "Logo (Teil 1)", "default": "GoShop" },
+    { "type": "text", "id": "logo_sub", "label": "Logo (Teil 2)", "default": "Bikes" },
+    { "type": "text", "id": "search_placeholder", "label": "Such-Placeholder", "default": "Wonach suchst du?" },
     { "type": "link_list", "id": "menu", "label": "Menü", "default": "main-menu" }
   ]
 }

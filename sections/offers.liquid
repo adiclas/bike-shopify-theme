@@ -1,0 +1,50 @@
+<section class="offers section-spacing">
+  <div class="container">
+    <header class="section-heading section-heading--center">
+      <p class="eyebrow">Special Pricing</p>
+      <h2>Special offers</h2>
+      <p class="section-heading__sub">Special offers open with the shop</p>
+    </header>
+    <div class="offers__grid">
+      {% for block in section.blocks %}
+        <article class="offer" {{ block.shopify_attributes }}>
+          <span class="offer__price">${{ block.settings.price }}</span>
+          <h3>{{ block.settings.name }}</h3>
+          <p class="offer__expires">{{ block.settings.expires }}</p>
+          <a class="offer__cta" href="{{ block.settings.link }}">Shop now ↗</a>
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Sonderangebote",
+  "max_blocks": 6,
+  "settings": [],
+  "blocks": [
+    {
+      "type": "offer",
+      "name": "Angebot",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Produkt", "default": "Panzerro 440" },
+        { "type": "text", "id": "price", "label": "Preis", "default": "250" },
+        { "type": "text", "id": "expires", "label": "Gültig bis", "default": "Expires Feb 21" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "Sonderangebote",
+    "blocks": [
+      { "type": "offer", "settings": { "name": "Panzerro 440", "price": "250" } },
+      { "type": "offer", "settings": { "name": "Panzerro 420", "price": "208" } },
+      { "type": "offer", "settings": { "name": "Panzerro 400", "price": "210" } },
+      { "type": "offer", "settings": { "name": "Panzerro 420", "price": "208" } },
+      { "type": "offer", "settings": { "name": "Panzerro 400", "price": "210" } },
+      { "type": "offer", "settings": { "name": "Panzerro 420", "price": "208" } }
+    ]
+  }]
+}
+{% endschema %}
