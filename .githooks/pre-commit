@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+# pre-commit hook for bike-shopify-theme.
+# Refuses the commit when the staged changes would:
+#   - delete templates/gift_card.liquid (Shopify blocks deletion)
+#   - reintroduce "footer" into templates/index.json's order array while the
+#     sections block has no "footer" key (causes the double-footer bug).
+
+set -e
+
+repo_root="$(git rev-parse --show-toplevel)"
+staged_deletions="$(git diff --cached --name-only --diff-filter=D)"
+
+for f in $staged_deletions; do
+  case "$f" in
+    templates/gift_card.liquid)
+      echo ""
+      echo "[pre-commit] REFUSING to commit deletion of $f" >&2
+      echo "  Shopify's API forbids removing this file. Restore it and retry." >&2
+      exit 1
+      ;;
+  esac
+done
+
+if git diff --cached --name-only | grep -q '^templates/index.json$'; then
+  if command -v pwsh >/dev/null 2>&1; then
+    pwsh -NoProfile -Command "
+      \$ErrorActionPreference = 'Stop'
+      \$json = Get-Content '$repo_root/templates/index.json' -Raw | ConvertFrom-Json
+      \$hasFooterSection = \$false
+      if (\$json.sections) {
+        foreach (\$prop in \$json.sections.PSObject.Properties) {
+          if (\$prop.Name -eq 'footer') { \$hasFooterSection = \$true; break }
+        }
+      }
+      \$orderHasFooter = \$json.order -contains 'footer'
+      if (\$orderHasFooter -and -not \$hasFooterSection) {
+        Write-Host '[pre-commit] REFUSING: footer in templates/index.json order but missing from sections.' -ForegroundColor Red
+        Write-Host '  Drop the trailing footer line from the order array (layout/theme.liquid renders it).' -ForegroundColor Yellow
+        exit 1
+      }
+    " || exit 1
+  fi
+fi
+
+exit 0
