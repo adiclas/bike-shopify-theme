@@ -240,7 +240,42 @@ if (predictiveInput && predictiveResults && predictiveUrl) {
       predictiveInput.setAttribute('aria-expanded', 'true');
     }
   });
-  document.addEventListener('click', (event) => {
-    if (!predictiveResults.contains(event.target) && event.target !== predictiveInput) closePredictive();
+document.addEventListener('click', (event) => {
+  if (!predictiveResults.contains(event.target) && event.target !== predictiveInput) closePredictive();
+});
+
+const favoritesKey = 'tb_favorites';
+const favoritesCount = document.querySelector('[data-favorites-count]');
+const favoritesToggle = document.querySelector('[data-favorites-toggle]');
+
+function getFavorites() {
+  try {
+    return JSON.parse(localStorage.getItem(favoritesKey) || '[]');
+  } catch (e) {
+    return [];
+  }
+}
+
+function updateFavoritesCount() {
+  if (!favoritesCount) return;
+  const list = getFavorites();
+  favoritesCount.textContent = list.length;
+  favoritesCount.toggleAttribute('hidden', list.length === 0);
+  favoritesCount.classList.remove('is-pulse');
+  void favoritesCount.offsetWidth;
+  favoritesCount.classList.add('is-pulse');
+}
+
+if (favoritesToggle) {
+  favoritesToggle.addEventListener('click', () => {
+    updateFavoritesCount();
+    document.dispatchEvent(new CustomEvent('favorites:open', { detail: { items: getFavorites() } }));
   });
+  updateFavoritesCount();
+}
+
+document.addEventListener('favorites:change', updateFavoritesCount);
+window.addEventListener('storage', (event) => {
+  if (event.key === favoritesKey) updateFavoritesCount();
+});
 }
