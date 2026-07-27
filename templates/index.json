@@ -1,5 +1,6 @@
 {
   "sections": {
+<<<<<<< HEAD
     "hero": { "type": "hero", "settings": {} },
     "choose-bike": { "type": "choose-bike", "settings": {} },
     "men-women": { "type": "men-women", "settings": {} },
@@ -9,6 +10,305 @@
     "testimonials": { "type": "testimonials", "settings": {} },
     "news": { "type": "news", "settings": {} },
     "contact-strip": { "type": "contact-strip", "settings": {} }
+=======
+    "hero": {
+      "type": "hero",
+      "blocks": {
+        "card_qd3ft6": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/bycicl.png",
+            "label": "Trekkingrad",
+            "heading": "$799",
+            "text": "Gratis Helm",
+            "link": ""
+          }
+        },
+        "card_y8wRC6": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/bycicl.png",
+            "label": "Trekkingrad",
+            "heading": "$799",
+            "text": "Gratis Helm",
+            "link": ""
+          }
+        },
+        "card_hPwHWj": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/bycicl.png",
+            "label": "Trekkingrad",
+            "heading": "$799",
+            "text": "Gratis Helm",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "card_qd3ft6",
+        "card_y8wRC6",
+        "card_hPwHWj"
+      ],
+      "settings": {
+        "image": "shopify://shop_images/biking-on-city-streets.jpg",
+        "eyebrow": "PLATZANGST",
+        "heading": "Bundle Deals",
+        "subheading": "Gratis Quad Lock Mount beimKauf einer Top Tube 2.0!",
+        "cta_label": "Deal Entdecken",
+        "cta_link": ""
+      }
+    },
+    "choose-bike": {
+      "type": "choose-bike",
+      "blocks": {
+        "category_taRDUD": {
+          "type": "category",
+          "settings": {
+            "title": "Road Bikes",
+            "subtitle": "Choose",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "category_taRDUD"
+      ],
+      "settings": {
+        "collection": "bike",
+        "products_to_show": 4,
+        "columns": "4",
+        "cta_label": "Choose a Bikes",
+        "cta_link": ""
+      }
+    },
+    "men-women": {
+      "type": "men-women",
+      "blocks": {
+        "card_BnTtyt": {
+          "type": "card",
+          "settings": {
+            "side": "left",
+            "image": "shopify://shop_images/image.png",
+            "eyebrow": "Waterproof Jacket",
+            "heading": "Men",
+            "price": "299",
+            "bullets": "Integrated 1-Lumen LED rear light\nOptional hood available separately\nBreathability rating 15,000",
+            "detail_link": "",
+            "cart_link": ""
+          }
+        },
+        "card_Ht48BG": {
+          "type": "card",
+          "settings": {
+            "side": "right",
+            "image": "shopify://shop_images/image_2.png",
+            "eyebrow": "Waterproof Jacket",
+            "heading": "Women",
+            "price": "310",
+            "bullets": "Integrated 1-Lumen LED rear light\nOptional hood available separately\nBreathability rating 15,000",
+            "detail_link": "",
+            "cart_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "card_BnTtyt",
+        "card_Ht48BG"
+      ],
+      "settings": {
+        "divider_text": "DISCOUNT UPTO75%"
+      }
+    },
+    "brand-strip": {
+      "type": "brand-strip",
+      "blocks": {
+        "brand_UiLW4p": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/premium_logo_giant.png",
+            "name": "Brand",
+            "link": ""
+          }
+        },
+        "brand_BX7FgN": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/premium_logo_platzangst.png",
+            "name": "Brand",
+            "link": ""
+          }
+        },
+        "brand_yCibmM": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/premium_logo_leatt.png",
+            "name": "Brand",
+            "link": ""
+          }
+        },
+        "brand_RbQgmT": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/premium_logo_giant.png",
+            "name": "Brand",
+            "link": ""
+          }
+        },
+        "brand_W76Y3h": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/premium_logo_platzangst.png",
+            "name": "Brand",
+            "link": ""
+          }
+        },
+        "brand_AzhByC": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/premium_logo_leatt.png",
+            "name": "Brand",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "brand_UiLW4p",
+        "brand_BX7FgN",
+        "brand_yCibmM",
+        "brand_RbQgmT",
+        "brand_W76Y3h",
+        "brand_AzhByC"
+      ],
+      "settings": {}
+    },
+    "special-offers": {
+      "type": "offers",
+      "blocks": {
+        "offer_E88dzz": {
+          "type": "offer",
+          "settings": {
+            "name": "Panzerro 440",
+            "price": "250",
+            "expires": "Expires Feb 21",
+            "link": ""
+          }
+        },
+        "offer_mBHKCx": {
+          "type": "offer",
+          "settings": {
+            "name": "Panzerro 440",
+            "price": "250",
+            "expires": "Expires Feb 21",
+            "link": ""
+          }
+        },
+        "offer_MiLaUy": {
+          "type": "offer",
+          "settings": {
+            "name": "Panzerro 440",
+            "price": "250",
+            "expires": "Expires Feb 21",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "offer_E88dzz",
+        "offer_mBHKCx",
+        "offer_MiLaUy"
+      ],
+      "settings": {}
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "blocks": {
+        "quote_fBRF7R": {
+          "type": "quote",
+          "settings": {
+            "quote": "Top notch services, plus outstanding multipurpose theme.",
+            "author": "Lionel Messi",
+            "role": "Happy Client"
+          }
+        },
+        "quote_Rw6cwF": {
+          "type": "quote",
+          "settings": {
+            "quote": "Top notch services, plus outstanding multipurpose theme.",
+            "author": "Lionel Messi",
+            "role": "Happy Client"
+          }
+        },
+        "quote_hQY74j": {
+          "type": "quote",
+          "settings": {
+            "quote": "Top notch services, plus outstanding multipurpose theme.",
+            "author": "Lionel Messi",
+            "role": "Happy Client"
+          }
+        }
+      },
+      "block_order": [
+        "quote_fBRF7R",
+        "quote_Rw6cwF",
+        "quote_hQY74j"
+      ],
+      "settings": {}
+    },
+    "news": {
+      "type": "news",
+      "blocks": {
+        "post_3yUfnc": {
+          "type": "post",
+          "settings": {
+            "day": "12",
+            "month": "Feb",
+            "year": "2025",
+            "title": "How to choose the best bike",
+            "text": "Vitae platea donec senectus sed.",
+            "link": ""
+          }
+        },
+        "post_66MF67": {
+          "type": "post",
+          "settings": {
+            "day": "12",
+            "month": "Feb",
+            "year": "2025",
+            "title": "How to choose the best bike",
+            "text": "Vitae platea donec senectus sed.",
+            "link": ""
+          }
+        },
+        "post_R9hNc6": {
+          "type": "post",
+          "settings": {
+            "day": "12",
+            "month": "Feb",
+            "year": "2025",
+            "title": "How to choose the best bike",
+            "text": "Vitae platea donec senectus sed.",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "post_3yUfnc",
+        "post_66MF67",
+        "post_R9hNc6"
+      ],
+      "settings": {}
+    },
+    "contact-strip": {
+      "type": "contact-strip",
+      "settings": {
+        "logo_top": "Bike",
+        "logo_sub": "Mailorder",
+        "description": "Bikemailorder is one of the most powerful and Feature Loaded Premium Shopify themes that smoothly work with any kind of store.",
+        "hours_heading": "Opening hours"
+      }
+    }
+>>>>>>> c5226078ec1343c9af1b4a1da5fc7eb272623ce5
   },
   "order": ["hero", "choose-bike", "men-women", "product-highlight", "brand-strip", "special-offers", "testimonials", "news", "contact-strip"]
 }
