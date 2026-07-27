@@ -25,13 +25,8 @@
           {% for block in section.blocks %}
             {% if block.type == 'hotspot' %}
               {% assign side = block.settings.side %}
-              {% if side == 'left' %}
-                {% assign x = block.settings.x | minus: 8 %}
-              {% else %}
-                {% assign x = block.settings.x | plus: 8 %}
-              {% endif %}
               <span class="product-highlight__hotspot" style="left:{{ block.settings.x }}%;top:{{ block.settings.y }}%;" {{ block.shopify_attributes }}></span>
-              <span class="product-highlight__label product-highlight__label--{{ side }}" style="left:{{ x }}%;top:{{ block.settings.y }}%;">
+              <span class="product-highlight__label product-highlight__label--{{ side }}" style="left:{{ block.settings.x }}%;top:{{ block.settings.y }}%;">
                 <em class="product-highlight__label-line"></em>
                 <span>{{ block.settings.text }}</span>
               </span>
