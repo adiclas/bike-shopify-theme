@@ -87,7 +87,7 @@
           "type": "card",
           "settings": {
             "side": "left",
-            "image": "shopify://shop_images/transparent-background.png",
+            "image": "shopify://shop_images/image.png",
             "eyebrow": "Waterproof Jacket",
             "heading": "Men",
             "price": "300",
@@ -99,8 +99,8 @@
         "card_Ht48BG": {
           "type": "card",
           "settings": {
-            "side": "left",
-            "image": "shopify://shop_images/home_damenbekleidung_2026.jpg",
+            "side": "right",
+            "image": "shopify://shop_images/image_2.png",
             "eyebrow": "Waterproof Jacket",
             "heading": "Women",
             "price": "300",
