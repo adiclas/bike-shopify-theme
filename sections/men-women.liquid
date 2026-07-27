@@ -9,7 +9,7 @@
         {% endif %}
         <div class="men-women__content">
           <p class="men-women__eyebrow">{{ block.settings.eyebrow }}</p>
-          <h3 class="men-women__heading">{{ block.settings.heading }} <span class="accent">${{ block.settings.price }}</span></h3>
+          <h3 class="men-women__heading">{{ block.settings.heading }} <span class="accent" data-count data-count-from="{{ block.settings.price_from }}" data-count-to="{{ block.settings.price }}" data-count-duration="1500">${{ block.settings.price }}</span></h3>
           {% if block.settings.bullets != blank %}
             <ul class="men-women__list">
               {% for line in block.settings.bullets %}<li>{{ line }}</li>{% endfor %}
@@ -42,7 +42,8 @@
         { "type": "image_picker", "id": "image", "label": "Bild" },
         { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Waterproof Jacket" },
         { "type": "text", "id": "heading", "label": "Titel", "default": "Men" },
-        { "type": "text", "id": "price", "label": "Preis", "default": "300" },
+        { "type": "text", "id": "price", "label": "Preis (Endwert)", "default": "310" },
+        { "type": "text", "id": "price_from", "label": "Startwert der Animation", "default": "999" },
         { "type": "textarea", "id": "bullets", "label": "Bullet Points (eine Zeile pro Punkt)", "default": "Integrated 1-Lumen LED rear light\nOptional hood available separately\nBreathability rating 15,000" },
         { "type": "url", "id": "detail_link", "label": "Detail-Link" },
         { "type": "url", "id": "cart_link", "label": "Add-to-cart-Link" }
@@ -52,8 +53,8 @@
   "presets": [{
     "name": "Men & Women",
     "blocks": [
-      { "type": "card", "settings": { "side": "left", "heading": "Men", "price": "350", "eyebrow": "Waterproof Jacket" } },
-      { "type": "card", "settings": { "side": "right", "heading": "Women", "price": "250", "eyebrow": "Waterproof Jacket" } }
+      { "type": "card", "settings": { "side": "left", "heading": "Men", "price": "299", "price_from": "999", "eyebrow": "Waterproof Jacket" } },
+      { "type": "card", "settings": { "side": "right", "heading": "Women", "price": "310", "price_from": "999", "eyebrow": "Waterproof Jacket" } }
     ]
   }]
 }
