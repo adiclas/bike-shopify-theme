@@ -1,7 +1,13 @@
 <section class="brand-strip section-spacing">
   <div class="container brand-strip__grid">
     {% for block in section.blocks %}
-      <a class="brand-strip__item" href="{{ block.settings.link }}" {{ block.shopify_attributes }}><span>{{ block.settings.name }}</span></a>
+      <a class="brand-strip__item" href="{{ block.settings.link }}" {{ block.shopify_attributes }}>
+        {% if block.settings.image != blank %}
+          {{ block.settings.image | image_url: width: 360 | image_tag: loading: 'lazy', widths: '120,240,360', alt: block.settings.name, class: 'brand-strip__image' }}
+        {% else %}
+          <span>{{ block.settings.name }}</span>
+        {% endif %}
+      </a>
     {% endfor %}
   </div>
 </section>
@@ -16,7 +22,8 @@
       "type": "brand",
       "name": "Marke",
       "settings": [
-        { "type": "text", "id": "name", "label": "Name", "default": "Brand" },
+        { "type": "image_picker", "id": "image", "label": "Logo" },
+        { "type": "text", "id": "name", "label": "Name (Fallback / Alt-Text)", "default": "Brand" },
         { "type": "url", "id": "link", "label": "Link" }
       ]
     }
@@ -24,12 +31,12 @@
   "presets": [{
     "name": "Marken-Strip",
     "blocks": [
-      { "type": "brand", "settings": { "name": "Cervélo" } },
-      { "type": "brand", "settings": { "name": "Trek" } },
-      { "type": "brand", "settings": { "name": "Giant" } },
-      { "type": "brand", "settings": { "name": "Focus" } },
-      { "type": "brand", "settings": { "name": "Norco" } },
-      { "type": "brand", "settings": { "name": "Ghost" } }
+      { "type": "brand", "settings": { "name": "Brand" } },
+      { "type": "brand", "settings": { "name": "Brand" } },
+      { "type": "brand", "settings": { "name": "Brand" } },
+      { "type": "brand", "settings": { "name": "Brand" } },
+      { "type": "brand", "settings": { "name": "Brand" } },
+      { "type": "brand", "settings": { "name": "Brand" } }
     ]
   }]
 }
