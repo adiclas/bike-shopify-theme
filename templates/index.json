@@ -124,6 +124,7 @@
         "brand_UiLW4p": {
           "type": "brand",
           "settings": {
+            "image": "shopify://shop_images/premium_logo_giant.png",
             "name": "Brand",
             "link": ""
           }
@@ -131,6 +132,7 @@
         "brand_BX7FgN": {
           "type": "brand",
           "settings": {
+            "image": "shopify://shop_images/premium_logo_platzangst.png",
             "name": "Brand",
             "link": ""
           }
@@ -138,27 +140,31 @@
         "brand_yCibmM": {
           "type": "brand",
           "settings": {
+            "image": "shopify://shop_images/premium_logo_leatt.png",
             "name": "Brand",
             "link": ""
           }
         },
-        "brand_EMYDDR": {
+        "brand_RbQgmT": {
           "type": "brand",
           "settings": {
+            "image": "shopify://shop_images/premium_logo_giant.png",
             "name": "Brand",
             "link": ""
           }
         },
-        "brand_qNjxyP": {
+        "brand_W76Y3h": {
           "type": "brand",
           "settings": {
+            "image": "shopify://shop_images/premium_logo_platzangst.png",
             "name": "Brand",
             "link": ""
           }
         },
-        "brand_UfmCVn": {
+        "brand_AzhByC": {
           "type": "brand",
           "settings": {
+            "image": "shopify://shop_images/premium_logo_leatt.png",
             "name": "Brand",
             "link": ""
           }
@@ -168,9 +174,9 @@
         "brand_UiLW4p",
         "brand_BX7FgN",
         "brand_yCibmM",
-        "brand_EMYDDR",
-        "brand_qNjxyP",
-        "brand_UfmCVn"
+        "brand_RbQgmT",
+        "brand_W76Y3h",
+        "brand_AzhByC"
       ],
       "settings": {}
     },
