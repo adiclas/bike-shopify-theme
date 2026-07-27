@@ -8,7 +8,7 @@
     </div>
   </div>
   <div class="hero__quickbar">
-    <div class="container hero__quickbar-inner">
+    <div class="hero__quickbar-inner">
       {% for block in section.blocks %}
         {% assign is_banner = block.settings.use_as_banner %}
         <a class="quick-card{% if block.settings.image == blank %} quick-card--empty{% endif %}{% if is_banner %} quick-card--banner{% endif %}" href="{{ block.settings.link }}" {{ block.shopify_attributes }}>
