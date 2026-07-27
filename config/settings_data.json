@@ -34,7 +34,20 @@
           "logo": "shopify://shop_images/BMO_panorama_white.png",
           "logo_top": "Bike",
           "logo_sub": "Mailorder",
-          "description": "<b>What do you need to ride ?</b><br>\nMake your dream of the perfect bike come true! In our bike online shop you will find your perfect bike, from affordable entry-level models to first-class performance bikes. Here on Bike Mailorder, you can also order components and a huge selection of bike accessories and clothing that guarantee pure riding pleasure."
+          "heading": "What do you need to ride ?",
+          "about": "Make your dream of the perfect bike come true! In our bike online shop you will find your perfect bike, from affordable entry-level models to first-class performance bikes.",
+          "social_facebook": "#",
+          "social_youtube": "#",
+          "social_instagram": "#",
+          "social_strava": "#",
+          "partners_heading": "Our partner shops",
+          "partners_name_1": "Claustrophobia",
+          "partners_url_1": "",
+          "partners_name_2": "iXS",
+          "partners_url_2": "",
+          "partners_name_3": "NEW ØRD3R",
+          "partners_url_3": "",
+          "trust_image": "shopify://shop_images/trusted_5jahre_1200x_c23010fd-6683-4e69-bde9-e6a51c387272.png"
         }
       }
     },
