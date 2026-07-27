@@ -22,9 +22,19 @@
       {% if block.type == 'menu' %}
         <div class="site-footer__col" {{ block.shopify_attributes }}>
           <h3>{{ block.settings.heading }}</h3>
-          {% if block.settings.menu != blank %}
-            <ul>{% for link in block.settings.menu.links %}<li><a href="{{ link.url }}">{{ link.title }}</a></li>{% endfor %}</ul>
-          {% endif %}
+          <ul>
+            {% if block.settings.menu != blank %}
+              {% for link in block.settings.menu.links %}<li><a href="{{ link.url }}">{{ link.title }}</a></li>{% endfor %}
+            {% endif %}
+            {%- liquid
+              assign menu_heading = block.settings.heading
+            -%}
+            {% for chk in section.blocks %}
+              {% if chk.type == 'link_item' and chk.settings.column == menu_heading and chk.settings.label != blank %}
+                <li><a href="{{ chk.settings.url }}">{{ chk.settings.label }}</a></li>
+              {% endif %}
+            {% endfor %}
+          </ul>
         </div>
       {% endif %}
     {% endfor %}
@@ -53,7 +63,7 @@
 {% schema %}
 {
   "name": "Footer",
-  "max_blocks": 4,
+  "max_blocks": 24,
   "settings": [
     { "type": "image_picker", "id": "logo", "label": "Logo" },
     { "type": "text", "id": "logo_top", "label": "Logo (Teil 1)", "default": "BIKEMAILORDER" },
@@ -81,13 +91,14 @@
       "name": "Menüspalte",
       "settings": [
         { "type": "text", "id": "heading", "label": "Titel", "default": "Service & Info" },
-        { "type": "link_list", "id": "menu", "label": "Menü" }
+        { "type": "link_list", "id": "menu", "label": "Shopify-Menü (optional)" }
       ]
     },
     {
       "type": "link_item",
-      "name": "Link",
+      "name": "Menü-Link",
       "settings": [
+        { "type": "select", "id": "column", "label": "Spalte", "options": [{ "value": "Service & Info", "label": "Service & Info" }, { "value": "Legal", "label": "Legal" }, { "value": "Unsere Partnershops", "label": "Unsere Partnershops" }], "default": "Service & Info" },
         { "type": "text", "id": "label", "label": "Text" },
         { "type": "url", "id": "url", "label": "Link" }
       ]
