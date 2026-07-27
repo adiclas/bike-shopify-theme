@@ -19,7 +19,8 @@
             "label": "Trekkingrad",
             "heading": "$799",
             "text": "Gratis Helm",
-            "link": ""
+            "link": "",
+            "use_as_banner": false
           }
         },
         "card_y8wRC6": {
@@ -29,7 +30,8 @@
             "label": "Trekkingrad",
             "heading": "$799",
             "text": "Gratis Helm",
-            "link": ""
+            "link": "",
+            "use_as_banner": true
           }
         },
         "card_hPwHWj": {
@@ -39,7 +41,8 @@
             "label": "Trekkingrad",
             "heading": "$799",
             "text": "Gratis Helm",
-            "link": ""
+            "link": "",
+            "use_as_banner": false
           }
         }
       },
