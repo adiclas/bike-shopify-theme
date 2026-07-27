@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>{{ shop.name }} — {{ 'gift_cards.issued.title' | t }}</title>
+    {{ content_for_header }}
+  </head>
+  <body>
+    <main class="gift-card">
+      <header><h1>{{ shop.name }}</h1></header>
+      <section class="gift-card__code">
+        <p>{{ gift_card.code | format_gift_card_code }}</p>
+        <p>{{ gift_card.balance | money }}</p>
+        <a href="{{ gift_card.url }}">Apply to checkout</a>
+      </section>
+    </main>
+  </body>
+</html>
