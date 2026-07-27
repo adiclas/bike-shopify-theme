@@ -1,30 +1,52 @@
 <footer class="site-footer">
-  <div class="container site-footer__grid">
-    <div class="site-footer__col">
+  <div class="container site-footer__inner">
+    <div class="site-footer__col site-footer__col--about">
       <a class="site-logo site-logo--footer" href="{{ routes.root_url }}">
         {% if section.settings.logo != blank %}
-          <img class="site-logo__image" src="{{ section.settings.logo | image_url: width: 360 }}" alt="{{ shop.name | escape }}" width="180" height="40" loading="lazy">
+          <img class="site-logo__image" src="{{ section.settings.logo | image_url: width: 320 }}" alt="{{ shop.name | escape }}" width="160" height="34" loading="lazy">
         {% else %}
           <span class="site-logo__mark">↗</span>
           <span class="site-logo__text"><strong>{{ section.settings.logo_top }}</strong><em>{{ section.settings.logo_sub }}</em></span>
         {% endif %}
       </a>
-      <p>{{ section.settings.description }}</p>
+      {% if section.settings.heading != blank %}<h3>{{ section.settings.heading }}</h3>{% endif %}
+      {% if section.settings.about != blank %}<p>{{ section.settings.about }}</p>{% endif %}
+      <ul class="site-footer__social" aria-label="Social Media">
+        {% if section.settings.social_facebook != blank %}<li><a href="{{ section.settings.social_facebook }}" aria-label="Facebook"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M13 22v-9h3l1-4h-4V6.5c0-1.2.4-2 2.1-2H17V1.1C16.7 1 15.6 1 14.4 1 11.9 1 10 2.8 10 5.8V9H7v4h3v9h3z"/></svg></a></li>{% endif %}
+        {% if section.settings.social_youtube != blank %}<li><a href="{{ section.settings.social_youtube }}" aria-label="YouTube"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M21.6 7.2c-.2-1.4-1.3-2.5-2.7-2.7C16.4 4 12 4 12 4s-4.4 0-6.9.5C3.7 4.7 2.6 5.8 2.4 7.2 2 9.7 2 12 2 12s0 2.3.4 4.8c.2 1.4 1.3 2.5 2.7 2.7C7.6 20 12 20 12 20s4.4 0 6.9-.5c1.4-.2 2.5-1.3 2.7-2.7.4-2.5.4-4.8.4-4.8s0-2.3-.4-4.8zM10 15.5v-7l6 3.5-6 3.5z"/></svg></a></li>{% endif %}
+        {% if section.settings.social_instagram != blank %}<li><a href="{{ section.settings.social_instagram }}" aria-label="Instagram"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 2c-2.7 0-3 0-4 .1-1 .1-1.7.2-2.3.5-.6.2-1.1.5-1.6 1s-.8 1-1 1.6C2.7 5.7 2.6 6.4 2.5 7.4 2.5 8.4 2.4 8.7 2.4 11.4s0 3 .1 4c.1 1 .2 1.7.5 2.3.2.6.5 1.1 1 1.6s1 .8 1.6 1c.6.2 1.3.4 2.3.5 1 .1 1.3.1 4 .1s3 0 4-.1c1-.1 1.7-.2 2.3-.5.6-.2 1.1-.5 1.6-1s.8-1 1-1.6c.2-.6.4-1.3.5-2.3.1-1 .1-1.3.1-4s0-3-.1-4c-.1-1-.2-1.7-.5-2.3-.2-.6-.5-1.1-1-1.6s-1-.8-1.6-1c-.6-.2-1.3-.4-2.3-.5-1-.1-1.3-.1-4-.1zm0 5a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 1.8a3.2 3.2 0 1 0 0 6.4 3.2 3.2 0 0 0 0-6.4zm5.4-2a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4z"/></svg></a></li>{% endif %}
+        {% if section.settings.social_strava != blank %}<li><a href="{{ section.settings.social_strava }}" aria-label="Strava"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M15 1H9L4 12l5 9 5-9-4-7h6l-1-4z"/></svg></a></li>{% endif %}
+      </ul>
     </div>
     {% for block in section.blocks %}
-      <div class="site-footer__col" {{ block.shopify_attributes }}>
-        <h3>{{ block.settings.heading }}</h3>
-        {% if block.settings.menu != blank %}
-          <ul>
-            {% for link in block.settings.menu.links %}<li><a href="{{ link.url }}">{{ link.title }}</a></li>{% endfor %}
-          </ul>
-        {% endif %}
-      </div>
+      {% if block.type == 'menu' %}
+        <div class="site-footer__col" {{ block.shopify_attributes }}>
+          <h3>{{ block.settings.heading }}</h3>
+          {% if block.settings.menu != blank %}
+            <ul>{% for link in block.settings.menu.links %}<li><a href="{{ link.url }}">{{ link.title }}</a></li>{% endfor %}</ul>
+          {% else %}
+            <ul>{% for i in (1..6) %}<li><a href="{{ block.settings.item_link }}">{{ block.settings.item_label }}</a></li>{% endfor %}</ul>
+          {% endif %}
+        </div>
+      {% endif %}
     {% endfor %}
+    <div class="site-footer__col site-footer__col--partners">
+      <h3>{{ section.settings.partners_heading }}</h3>
+      <ul class="site-footer__partners">
+        {% for i in (1..3) %}
+          {% capture name %}{{ 'partners_name_' | append: i }}{% endcapture %}
+          {% capture url %}{{ 'partners_url_' | append: i }}{% endcapture %}
+          {% if section.settings[name] != blank %}<li><a href="{{ section.settings[url] }}">{{ section.settings[name] }}</a></li>{% endif %}
+        {% endfor %}
+      </ul>
+      {% if section.settings.trust_image != blank %}
+        <div class="site-footer__trust">{{ section.settings.trust_image | image_url: width: 200 | image_tag: loading: 'lazy', widths: '120,200', alt: 'Trusted Shop' }}</div>
+      {% endif %}
+    </div>
   </div>
   <div class="site-footer__bottom">
     <div class="container site-footer__bottom-inner">
-      <span>© {{ 'now' | date: '%Y' }} {{ shop.name }} · Theme: Trailbound</span>
+      <span>© {{ 'now' | date: '%Y' }} {{ shop.name }}</span>
       <div class="site-footer__payments">{% for type in shop.enabled_payment_types %}{{ type | payment_type_svg_tag }}{% endfor %}</div>
     </div>
   </div>
@@ -33,20 +55,37 @@
 {% schema %}
 {
   "name": "Footer",
-  "max_blocks": 3,
+  "max_blocks": 4,
   "settings": [
     { "type": "image_picker", "id": "logo", "label": "Logo" },
-    { "type": "text", "id": "logo_top", "label": "Logo (Teil 1)", "default": "Bike" },
-    { "type": "text", "id": "logo_sub", "label": "Logo (Teil 2)", "default": "Mailorder" },
-    { "type": "textarea", "id": "description", "label": "Beschreibung", "default": "Customer service is our passion, available Mon–Fri." }
+    { "type": "text", "id": "logo_top", "label": "Logo (Teil 1)", "default": "BIKEMAILORDER" },
+    { "type": "text", "id": "logo_sub", "label": "Logo (Teil 2)", "default": "." },
+    { "type": "text", "id": "heading", "label": "Überschrift", "default": "What do you need to ride ?" },
+    { "type": "textarea", "id": "about", "label": "Über uns Text", "default": "Make your dream of the perfect bike come true! In our bike online shop you will find your perfect bike, from affordable entry-level models to first-class performance bikes." },
+    { "type": "header", "content": "Social Media" },
+    { "type": "url", "id": "social_facebook", "label": "Facebook" },
+    { "type": "url", "id": "social_youtube", "label": "YouTube" },
+    { "type": "url", "id": "social_instagram", "label": "Instagram" },
+    { "type": "url", "id": "social_strava", "label": "Strava" },
+    { "type": "header", "content": "Partnershops" },
+    { "type": "text", "id": "partners_heading", "label": "Heading", "default": "Our partner shops" },
+    { "type": "text", "id": "partners_name_1", "label": "Name 1", "default": "Claustrophobia" },
+    { "type": "url", "id": "partners_url_1", "label": "URL 1" },
+    { "type": "text", "id": "partners_name_2", "label": "Name 2", "default": "iXS" },
+    { "type": "url", "id": "partners_url_2", "label": "URL 2" },
+    { "type": "text", "id": "partners_name_3", "label": "Name 3", "default": "NEW ØRD3R" },
+    { "type": "url", "id": "partners_url_3", "label": "URL 3" },
+    { "type": "image_picker", "id": "trust_image", "label": "Trust-Badge" }
   ],
   "blocks": [
     {
       "type": "menu",
       "name": "Menüspalte",
       "settings": [
-        { "type": "text", "id": "heading", "label": "Titel", "default": "Service" },
-        { "type": "link_list", "id": "menu", "label": "Menü" }
+        { "type": "text", "id": "heading", "label": "Titel", "default": "Service & Info" },
+        { "type": "link_list", "id": "menu", "label": "Menü" },
+        { "type": "text", "id": "item_label", "label": "Fallback-Linktext", "default": "Link" },
+        { "type": "url", "id": "item_link", "label": "Fallback-Link" }
       ]
     }
   ]
