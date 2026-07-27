@@ -31,9 +31,10 @@
       "footer": {
         "type": "footer",
         "settings": {
+          "logo": "shopify://shop_images/BMO_panorama_white.png",
           "logo_top": "Bike",
           "logo_sub": "Mailorder",
-          "description": "Customer service is our passion, available Mon–Fri."
+          "description": "<b>What do you need to ride ?</b><br>\nMake your dream of the perfect bike come true! In our bike online shop you will find your perfect bike, from affordable entry-level models to first-class performance bikes. Here on Bike Mailorder, you can also order components and a huge selection of bike accessories and clothing that guarantee pure riding pleasure."
         }
       }
     },
