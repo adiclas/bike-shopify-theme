@@ -1,0 +1,134 @@
+<section class="recently-viewed section-spacing" data-recently-viewed aria-label="Zuletzt angesehen">
+  <div class="container">
+    <header class="section-heading section-heading--center">
+      <p class="eyebrow">Zuletzt angesehen</p>
+      <h2>Sie haben sich auch angesehen</h2>
+    </header>
+    <div class="recently-viewed__rail" data-recently-viewed-rail>
+      <div class="recently-viewed__track" data-recently-viewed-track></div>
+      <button type="button" class="recently-viewed__nav recently-viewed__nav--prev" data-recently-prev aria-label="Vorherige Produkte">‹</button>
+      <button type="button" class="recently-viewed__nav recently-viewed__nav--next" data-recently-next aria-label="Weitere Produkte">›</button>
+    </div>
+    <p class="recently-viewed__empty" data-recently-viewed-empty hidden>Schauen Sie sich ein Produkt an und es erscheint hier.</p>
+  </div>
+</section>
+
+<style>
+  .recently-viewed__rail{position:relative}
+  .recently-viewed__track{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(220px,1fr);gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:12px;scroll-behavior:smooth}
+  .recently-viewed__track::-webkit-scrollbar{height:6px}
+  .recently-viewed__track::-webkit-scrollbar-thumb{background:var(--color-border);border-radius:3px}
+  .recently-viewed__nav{position:absolute;top:50%;transform:translateY(-50%);width:38px;height:38px;display:grid;place-items:center;background:var(--color-header);color:#fff;border-radius:50%;font-size:1.4rem;line-height:1;cursor:pointer;border:0;box-shadow:0 6px 18px rgba(0,0,0,.16);transition:transform .2s;z-index:2}
+  .recently-viewed__nav:hover{transform:translateY(-50%) scale(1.05)}
+  .recently-viewed__nav:disabled{opacity:.35;cursor:default}
+  .recently-viewed__nav--prev{left:-12px}
+  .recently-viewed__nav--next{right:-12px}
+  .recently-viewed__item{scroll-snap-align:start}
+  .recently-viewed__empty{margin:14px 0 0;color:var(--color-muted);font-size:.9rem;text-align:center}
+  @media(max-width:800px){.recently-viewed__nav{display:none}}
+</style>
+
+<script>
+  (function() {
+    const section = document.querySelector('[data-recently-viewed]');
+    if (!section) return;
+    const rail = section.querySelector('[data-recently-viewed-rail]');
+    const track = section.querySelector('[data-recently-viewed-track]');
+    const empty = section.querySelector('[data-recently-viewed-empty]');
+    const prev = section.querySelector('[data-recently-prev]');
+    const next = section.querySelector('[data-recently-next]');
+    const storeKey = 'tb_recent_products';
+    const maxItems = 12;
+    const readList = () => {
+      try { return JSON.parse(localStorage.getItem(storeKey) || '[]'); }
+      catch (e) { return []; }
+    };
+    const writeList = (list) => {
+      try { localStorage.setItem(storeKey, JSON.stringify(list.slice(0, maxItems))); }
+      catch (e) {}
+    };
+    const shouldHide = (item) => {
+      const current = document.body.dataset.currentProductId;
+      return current && current === String(item.id);
+    };
+    const escapeHtml = (value) => String(value == null ? '' : value).replace(/[&<>"']/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
+    const renderEmpty = () => {
+      track.innerHTML = '';
+      empty.removeAttribute('hidden');
+      rail.style.display = 'none';
+    };
+    const renderCard = (item) => {
+      const card = document.createElement('a');
+      card.className = 'recently-viewed__item product-card product-card--reveal';
+      card.href = item.url;
+      card.dataset.productId = item.id;
+      const img = item.image ? `<img src="${item.image}" alt="${escapeHtml(item.title)}" loading="lazy">` : '';
+      card.innerHTML = `
+        <div class="recently-viewed__media product-card__media">${img}</div>
+        <div class="product-card__body">
+          ${item.vendor ? `<p class="product-card__vendor">${escapeHtml(item.vendor)}</p>` : ''}
+          <h3 class="product-card__title">${escapeHtml(item.title)}</h3>
+          <p class="product-card__price">${escapeHtml(item.price)}</p>
+        </div>`;
+      return card;
+    };
+    const render = (list) => {
+      const items = list.filter((item) => item && item.url && !shouldHide(item)).slice(0, maxItems);
+      if (items.length < 2) { renderEmpty(); return; }
+      empty.setAttribute('hidden', '');
+      rail.style.display = '';
+      track.innerHTML = '';
+      items.forEach((item) => track.appendChild(renderCard(item)));
+      requestAnimationFrame(() => items.forEach((card) => card.classList.add('is-visible')));
+    };
+    const snapshotCurrent = () => {
+      const id = document.body.dataset.currentProductId;
+      if (!id) return;
+      const snapshot = {
+        id,
+        title: document.body.dataset.currentProductTitle || document.title,
+        url: window.location.pathname,
+        image: document.body.dataset.currentProductImage || '',
+        vendor: document.body.dataset.currentProductVendor || '',
+        price: document.body.dataset.currentProductPrice || ''
+      };
+      const list = readList().filter((p) => String(p.id) !== String(id));
+      list.unshift(snapshot);
+      writeList(list);
+    };
+    const mergeRecommendations = async () => {
+      const currentId = document.body.dataset.currentProductId;
+      let recommended = [];
+      try {
+        const response = await fetch(`{{ routes.collections_all_url }}`);
+        if (response.ok) recommended = await response.json();
+      } catch (error) {}
+      const merged = [...readList(), ...(Array.isArray(recommended) ? recommended : [])]
+        .filter((item, index, list) => list.findIndex((other) => String(other.id) === String(item.id)) === index)
+        .filter((item) => !currentId || String(item.id) !== String(currentId))
+        .slice(0, maxItems);
+      render(merged);
+    };
+    document.addEventListener('recently-viewed:track', (event) => {
+      if (!event.detail || !event.detail.id) return;
+      const item = event.detail;
+      const list = readList().filter((p) => String(p.id) !== String(item.id));
+      list.unshift(item);
+      writeList(list);
+      mergeRecommendations();
+    });
+    if (next) next.addEventListener('click', () => track.scrollBy({ left: track.clientWidth * 0.8, behavior: 'smooth' }));
+    if (prev) prev.addEventListener('click', () => track.scrollBy({ left: -track.clientWidth * 0.8, behavior: 'smooth' }));
+    snapshotCurrent();
+    mergeRecommendations();
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Recently Viewed",
+  "settings": [
+    { "type": "paragraph", "content": "Schreibt kürzlich besuchte Produkte in localStorage und rendert sie als Karussell. Auf Produktseiten wird das aktuelle Produkt ausgeschlossen." }
+  ]
+}
+{% endschema %}

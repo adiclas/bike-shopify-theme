@@ -275,6 +275,46 @@ if (favoritesToggle) {
 }
 
 document.addEventListener('favorites:change', updateFavoritesCount);
+
+function pad(value) {
+  return String(value).padStart(2, '0');
+}
+
+function endCountdown(el, days, hours, minutes, seconds) {
+  const daysEl = el.querySelector('[data-countdown-days]');
+  const hoursEl = el.querySelector('[data-countdown-hours]');
+  const minutesEl = el.querySelector('[data-countdown-minutes]');
+  const secondsEl = el.querySelector('[data-countdown-seconds]');
+  if (!daysEl || !hoursEl || !minutesEl || !secondsEl) return;
+  daysEl.textContent = days;
+  hoursEl.textContent = pad(hours);
+  minutesEl.textContent = pad(minutes);
+  secondsEl.textContent = pad(seconds);
+}
+
+document.querySelectorAll('[data-countdown]').forEach((el) => {
+  const target = new Date(el.dataset.countdownEnd);
+  if (isNaN(target.getTime())) {
+    el.remove();
+    return;
+  }
+  const tick = () => {
+    const diff = Math.max(0, target.getTime() - Date.now());
+    if (diff <= 0) {
+      endCountdown(el, 0, 0, 0, 0);
+      el.classList.add('is-ended');
+      clearInterval(timer);
+      return;
+    }
+    const seconds = Math.floor(diff / 1000) % 60;
+    const minutes = Math.floor(diff / 60000) % 60;
+    const hours = Math.floor(diff / 3600000) % 24;
+    const days = Math.floor(diff / 86400000);
+    endCountdown(el, days, hours, minutes, seconds);
+  };
+  tick();
+  const timer = setInterval(tick, 1000);
+});
 window.addEventListener('storage', (event) => {
   if (event.key === favoritesKey) updateFavoritesCount();
 });

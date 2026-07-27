@@ -7,10 +7,18 @@
     </header>
     <div class="offers__grid">
       {% for block in section.blocks %}
-        <article class="offer" {{ block.shopify_attributes }}>
+        <article class="offer{% if block.settings.ending_at != blank %} offer--countdown{% endif %}" {{ block.shopify_attributes }}>
           <span class="offer__price">${{ block.settings.price }}</span>
           <h3>{{ block.settings.name }}</h3>
           <p class="offer__expires">{{ block.settings.expires }}</p>
+          {% if block.settings.ending_at != blank %}
+            <div class="countdown" data-countdown data-countdown-end="{{ block.settings.ending_at }}" aria-live="off">
+              <span class="countdown__cell"><b data-countdown-days>0</b><em>Tage</em></span>
+              <span class="countdown__cell"><b data-countdown-hours>00</b><em>Std</em></span>
+              <span class="countdown__cell"><b data-countdown-minutes>00</b><em>Min</em></span>
+              <span class="countdown__cell"><b data-countdown-seconds>00</b><em>Sek</em></span>
+            </div>
+          {% endif %}
           <a class="offer__cta" href="{{ block.settings.link }}">Shop now ↗</a>
         </article>
       {% endfor %}
@@ -31,6 +39,7 @@
         { "type": "text", "id": "name", "label": "Produkt", "default": "Panzerro 440" },
         { "type": "text", "id": "price", "label": "Preis", "default": "250" },
         { "type": "text", "id": "expires", "label": "Gültig bis", "default": "Expires Feb 21" },
+        { "type": "text", "id": "ending_at", "label": "Countdown endet am (YYYY-MM-DDTHH:MM)", "info": "Wenn leer, wird kein Countdown angezeigt. Beispiel: 2025-12-31T23:59" },
         { "type": "url", "id": "link", "label": "Link" }
       ]
     }
@@ -40,10 +49,7 @@
     "blocks": [
       { "type": "offer", "settings": { "name": "Panzerro 440", "price": "250" } },
       { "type": "offer", "settings": { "name": "Panzerro 420", "price": "208" } },
-      { "type": "offer", "settings": { "name": "Panzerro 400", "price": "210" } },
-      { "type": "offer", "settings": { "name": "Panzerro 420", "price": "208" } },
-      { "type": "offer", "settings": { "name": "Panzerro 400", "price": "210" } },
-      { "type": "offer", "settings": { "name": "Panzerro 420", "price": "208" } }
+      { "type": "offer", "settings": { "name": "Panzerro 400", "price": "210" } }
     ]
   }]
 }
