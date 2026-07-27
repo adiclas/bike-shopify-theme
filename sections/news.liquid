@@ -1,32 +1,30 @@
-<section class="news section-spacing">
-  <div class="container">
-    <header class="section-heading section-heading--center">
-      <p class="eyebrow">Latest Blog</p>
-      <h2>{{ section.settings.heading }}</h2>
-      <p class="section-heading__sub">{{ section.settings.subtitle }}</p>
-    </header>
-    <div class="news__grid">
-      {% for block in section.blocks %}
-        {% assign style = block.settings.image_style %}
-        <article class="news__post{% if block.settings.image != blank and style == 'background' %} news__post--bg{% endif %}{% if style == 'top' %} news__post--top{% endif %}" {{ block.shopify_attributes }}>
-          {% if block.settings.image != blank and style == 'background' %}
-            <div class="news__bg" style="background-image:url('{{ block.settings.image | image_url: width: 1200 }}')">
-              <div class="news__bg-overlay"></div>
-            </div>
-          {% elsif block.settings.image != blank and style == 'top' %}
-            <a class="news__image" href="{{ block.settings.link }}">
-              {{ block.settings.image | image_url: width: 1000 | image_tag: loading: 'lazy', widths: '400,700,1000', alt: block.settings.title }}
-            </a>
-          {% endif %}
-          <div class="news__body">
-            <p class="news__meta"><span>{{ block.settings.day }}</span><strong>{{ block.settings.month }}</strong> · {{ block.settings.year }}</p>
-            <h3>{{ block.settings.title }}</h3>
-            <p class="news__text">{{ block.settings.text }}</p>
-            <a class="news__cta" href="{{ block.settings.link }}">Read more ↗</a>
+<section class="news">
+  <header class="section-heading section-heading--center">
+    <p class="eyebrow">Latest Blog</p>
+    <h2>{{ section.settings.heading }}</h2>
+    <p class="section-heading__sub">{{ section.settings.subtitle }}</p>
+  </header>
+  <div class="news__grid">
+    {% for block in section.blocks %}
+      {% assign style = block.settings.image_style %}
+      <article class="news__post{% if block.settings.image != blank and style == 'background' %} news__post--bg{% endif %}{% if style == 'top' %} news__post--top{% endif %}" {{ block.shopify_attributes }}>
+        {% if block.settings.image != blank and style == 'background' %}
+          <div class="news__bg" style="background-image:url('{{ block.settings.image | image_url: width: 1200 }}')">
+            <div class="news__bg-overlay"></div>
           </div>
-        </article>
-      {% endfor %}
-    </div>
+        {% elsif block.settings.image != blank and style == 'top' %}
+          <a class="news__image" href="{{ block.settings.link }}">
+            {{ block.settings.image | image_url: width: 1000 | image_tag: loading: 'lazy', widths: '400,700,1000', alt: block.settings.title }}
+          </a>
+        {% endif %}
+        <div class="news__body">
+          <p class="news__meta"><span>{{ block.settings.day }}</span><strong>{{ block.settings.month }}</strong> · {{ block.settings.year }}</p>
+          <h3>{{ block.settings.title }}</h3>
+          <p class="news__text">{{ block.settings.text }}</p>
+          <a class="news__cta" href="{{ block.settings.link }}">Read more ↗</a>
+        </div>
+      </article>
+    {% endfor %}
   </div>
 </section>
 
