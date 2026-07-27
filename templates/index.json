@@ -297,15 +297,6 @@
       ],
       "settings": {}
     },
-    "contact-strip": {
-      "type": "contact-strip",
-      "settings": {
-        "logo_top": "Bike",
-        "logo_sub": "Mailorder",
-        "description": "Bikemailorder is one of the most powerful and Feature Loaded Premium Shopify themes that smoothly work with any kind of store.",
-        "hours_heading": "Opening hours"
-      }
-    },
     "product-highlight": {
       "type": "product-highlight",
       "blocks": {
@@ -405,6 +396,35 @@
         "cta_link": "",
         "cta_label": "Add to cart"
       }
+    },
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "service": {
+          "type": "menu",
+          "settings": {
+            "heading": "Service & Info",
+            "menu": "footer"
+          }
+        },
+        "legal": {
+          "type": "menu",
+          "settings": {
+            "heading": "Legal",
+            "menu": "footer"
+          }
+        }
+      },
+      "settings": {
+        "logo_top": "BIKEMAILORDER",
+        "logo_sub": "",
+        "heading": "What do you need to ride ?",
+        "about": "Make your dream of the perfect bike come true! In our bike online shop you will find your perfect bike, from affordable entry-level models to first-class performance bikes.",
+        "partners_heading": "Our partner shops",
+        "partners_name_1": "Claustrophobia",
+        "partners_name_2": "iXS",
+        "partners_name_3": "NEW ØRD3R"
+      }
     }
   },
   "order": [
@@ -415,7 +435,6 @@
     "brand-strip",
     "special-offers",
     "testimonials",
-    "news",
-    "contact-strip"
+    "news"
   ]
 }
