@@ -358,7 +358,7 @@
         "hotspot_MQXcXA": {
           "type": "hotspot",
           "settings": {
-            "side": "right",
+            "side": "left",
             "x": 32,
             "y": 18,
             "text": "Fluid Cable Management"
