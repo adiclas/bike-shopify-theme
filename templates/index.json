@@ -82,6 +82,34 @@
     },
     "men-women": {
       "type": "men-women",
+      "blocks": {
+        "card_BnTtyt": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/transparent-background.png",
+            "title": "Men's Clothing",
+            "price": "300",
+            "btn_label": "Shop now",
+            "btn_sub": "Men's",
+            "link": ""
+          }
+        },
+        "card_Ht48BG": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/home_damenbekleidung_2026.jpg",
+            "title": "Men",
+            "price": "300",
+            "btn_label": "Shop now",
+            "btn_sub": "Men's",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "card_BnTtyt",
+        "card_Ht48BG"
+      ],
       "settings": {}
     },
     "brand-strip": {
