@@ -86,23 +86,27 @@
         "card_BnTtyt": {
           "type": "card",
           "settings": {
-            "image": "shopify://shop_images/transparent-background.png",
-            "title": "Men's Clothing",
+            "side": "left",
+            "image": "shopify://shop_images/image.png",
+            "eyebrow": "Waterproof Jacket",
+            "heading": "Men",
             "price": "300",
-            "btn_label": "Shop now",
-            "btn_sub": "Men's",
-            "link": ""
+            "bullets": "Integrated 1-Lumen LED rear light\nOptional hood available separately\nBreathability rating 15,000",
+            "detail_link": "",
+            "cart_link": ""
           }
         },
         "card_Ht48BG": {
           "type": "card",
           "settings": {
-            "image": "shopify://shop_images/home_damenbekleidung_2026.jpg",
-            "title": "Men",
+            "side": "right",
+            "image": "shopify://shop_images/image_2.png",
+            "eyebrow": "Waterproof Jacket",
+            "heading": "Women",
             "price": "300",
-            "btn_label": "Shop now",
-            "btn_sub": "Men's",
-            "link": ""
+            "bullets": "Integrated 1-Lumen LED rear light\nOptional hood available separately\nBreathability rating 15,000",
+            "detail_link": "",
+            "cart_link": ""
           }
         }
       },
@@ -110,22 +114,181 @@
         "card_BnTtyt",
         "card_Ht48BG"
       ],
-      "settings": {}
+      "settings": {
+        "divider_text": "DISCOUNT UPTO75%"
+      }
     },
     "brand-strip": {
       "type": "brand-strip",
+      "blocks": {
+        "brand_UiLW4p": {
+          "type": "brand",
+          "settings": {
+            "name": "Brand",
+            "link": ""
+          }
+        },
+        "brand_BX7FgN": {
+          "type": "brand",
+          "settings": {
+            "name": "Brand",
+            "link": ""
+          }
+        },
+        "brand_yCibmM": {
+          "type": "brand",
+          "settings": {
+            "name": "Brand",
+            "link": ""
+          }
+        },
+        "brand_EMYDDR": {
+          "type": "brand",
+          "settings": {
+            "name": "Brand",
+            "link": ""
+          }
+        },
+        "brand_qNjxyP": {
+          "type": "brand",
+          "settings": {
+            "name": "Brand",
+            "link": ""
+          }
+        },
+        "brand_UfmCVn": {
+          "type": "brand",
+          "settings": {
+            "name": "Brand",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "brand_UiLW4p",
+        "brand_BX7FgN",
+        "brand_yCibmM",
+        "brand_EMYDDR",
+        "brand_qNjxyP",
+        "brand_UfmCVn"
+      ],
       "settings": {}
     },
     "special-offers": {
       "type": "offers",
+      "blocks": {
+        "offer_E88dzz": {
+          "type": "offer",
+          "settings": {
+            "name": "Panzerro 440",
+            "price": "250",
+            "expires": "Expires Feb 21",
+            "link": ""
+          }
+        },
+        "offer_mBHKCx": {
+          "type": "offer",
+          "settings": {
+            "name": "Panzerro 440",
+            "price": "250",
+            "expires": "Expires Feb 21",
+            "link": ""
+          }
+        },
+        "offer_MiLaUy": {
+          "type": "offer",
+          "settings": {
+            "name": "Panzerro 440",
+            "price": "250",
+            "expires": "Expires Feb 21",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "offer_E88dzz",
+        "offer_mBHKCx",
+        "offer_MiLaUy"
+      ],
       "settings": {}
     },
     "testimonials": {
       "type": "testimonials",
+      "blocks": {
+        "quote_fBRF7R": {
+          "type": "quote",
+          "settings": {
+            "quote": "Top notch services, plus outstanding multipurpose theme.",
+            "author": "Lionel Messi",
+            "role": "Happy Client"
+          }
+        },
+        "quote_Rw6cwF": {
+          "type": "quote",
+          "settings": {
+            "quote": "Top notch services, plus outstanding multipurpose theme.",
+            "author": "Lionel Messi",
+            "role": "Happy Client"
+          }
+        },
+        "quote_hQY74j": {
+          "type": "quote",
+          "settings": {
+            "quote": "Top notch services, plus outstanding multipurpose theme.",
+            "author": "Lionel Messi",
+            "role": "Happy Client"
+          }
+        }
+      },
+      "block_order": [
+        "quote_fBRF7R",
+        "quote_Rw6cwF",
+        "quote_hQY74j"
+      ],
       "settings": {}
     },
     "news": {
       "type": "news",
+      "blocks": {
+        "post_3yUfnc": {
+          "type": "post",
+          "settings": {
+            "day": "12",
+            "month": "Feb",
+            "year": "2025",
+            "title": "How to choose the best bike",
+            "text": "Vitae platea donec senectus sed.",
+            "link": ""
+          }
+        },
+        "post_66MF67": {
+          "type": "post",
+          "settings": {
+            "day": "12",
+            "month": "Feb",
+            "year": "2025",
+            "title": "How to choose the best bike",
+            "text": "Vitae platea donec senectus sed.",
+            "link": ""
+          }
+        },
+        "post_R9hNc6": {
+          "type": "post",
+          "settings": {
+            "day": "12",
+            "month": "Feb",
+            "year": "2025",
+            "title": "How to choose the best bike",
+            "text": "Vitae platea donec senectus sed.",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "post_3yUfnc",
+        "post_66MF67",
+        "post_R9hNc6"
+      ],
       "settings": {}
     },
     "contact-strip": {
