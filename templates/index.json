@@ -120,10 +120,96 @@
     },
     "brand-strip": {
       "type": "brand-strip",
+      "blocks": {
+        "brand_UiLW4p": {
+          "type": "brand",
+          "settings": {
+            "name": "Brand",
+            "link": ""
+          }
+        },
+        "brand_BX7FgN": {
+          "type": "brand",
+          "settings": {
+            "name": "Brand",
+            "link": ""
+          }
+        },
+        "brand_yCibmM": {
+          "type": "brand",
+          "settings": {
+            "name": "Brand",
+            "link": ""
+          }
+        },
+        "brand_EMYDDR": {
+          "type": "brand",
+          "settings": {
+            "name": "Brand",
+            "link": ""
+          }
+        },
+        "brand_qNjxyP": {
+          "type": "brand",
+          "settings": {
+            "name": "Brand",
+            "link": ""
+          }
+        },
+        "brand_UfmCVn": {
+          "type": "brand",
+          "settings": {
+            "name": "Brand",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "brand_UiLW4p",
+        "brand_BX7FgN",
+        "brand_yCibmM",
+        "brand_EMYDDR",
+        "brand_qNjxyP",
+        "brand_UfmCVn"
+      ],
       "settings": {}
     },
     "special-offers": {
       "type": "offers",
+      "blocks": {
+        "offer_E88dzz": {
+          "type": "offer",
+          "settings": {
+            "name": "Panzerro 440",
+            "price": "250",
+            "expires": "Expires Feb 21",
+            "link": ""
+          }
+        },
+        "offer_mBHKCx": {
+          "type": "offer",
+          "settings": {
+            "name": "Panzerro 440",
+            "price": "250",
+            "expires": "Expires Feb 21",
+            "link": ""
+          }
+        },
+        "offer_MiLaUy": {
+          "type": "offer",
+          "settings": {
+            "name": "Panzerro 440",
+            "price": "250",
+            "expires": "Expires Feb 21",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "offer_E88dzz",
+        "offer_mBHKCx",
+        "offer_MiLaUy"
+      ],
       "settings": {}
     },
     "testimonials": {
