@@ -214,10 +214,81 @@
     },
     "testimonials": {
       "type": "testimonials",
+      "blocks": {
+        "quote_fBRF7R": {
+          "type": "quote",
+          "settings": {
+            "quote": "Top notch services, plus outstanding multipurpose theme.",
+            "author": "Lionel Messi",
+            "role": "Happy Client"
+          }
+        },
+        "quote_Rw6cwF": {
+          "type": "quote",
+          "settings": {
+            "quote": "Top notch services, plus outstanding multipurpose theme.",
+            "author": "Lionel Messi",
+            "role": "Happy Client"
+          }
+        },
+        "quote_hQY74j": {
+          "type": "quote",
+          "settings": {
+            "quote": "Top notch services, plus outstanding multipurpose theme.",
+            "author": "Lionel Messi",
+            "role": "Happy Client"
+          }
+        }
+      },
+      "block_order": [
+        "quote_fBRF7R",
+        "quote_Rw6cwF",
+        "quote_hQY74j"
+      ],
       "settings": {}
     },
     "news": {
       "type": "news",
+      "blocks": {
+        "post_3yUfnc": {
+          "type": "post",
+          "settings": {
+            "day": "12",
+            "month": "Feb",
+            "year": "2025",
+            "title": "How to choose the best bike",
+            "text": "Vitae platea donec senectus sed.",
+            "link": ""
+          }
+        },
+        "post_66MF67": {
+          "type": "post",
+          "settings": {
+            "day": "12",
+            "month": "Feb",
+            "year": "2025",
+            "title": "How to choose the best bike",
+            "text": "Vitae platea donec senectus sed.",
+            "link": ""
+          }
+        },
+        "post_R9hNc6": {
+          "type": "post",
+          "settings": {
+            "day": "12",
+            "month": "Feb",
+            "year": "2025",
+            "title": "How to choose the best bike",
+            "text": "Vitae platea donec senectus sed.",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "post_3yUfnc",
+        "post_66MF67",
+        "post_R9hNc6"
+      ],
       "settings": {}
     },
     "contact-strip": {
