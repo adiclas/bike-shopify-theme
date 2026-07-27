@@ -59,7 +59,23 @@
     },
     "choose-bike": {
       "type": "choose-bike",
+      "blocks": {
+        "category_taRDUD": {
+          "type": "category",
+          "settings": {
+            "title": "Road Bikes",
+            "subtitle": "Choose",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "category_taRDUD"
+      ],
       "settings": {
+        "collection": "bike",
+        "products_to_show": 4,
+        "columns": "4",
         "cta_label": "Choose a Bikes",
         "cta_link": ""
       }
