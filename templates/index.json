@@ -306,8 +306,8 @@
         "hours_heading": "Opening hours"
       }
     },
-    "product_feature_PEkHdP": {
-      "type": "product-feature",
+    "product-highlight": {
+      "type": "product-highlight",
       "blocks": {
         "hotspot_HLxVBj": {
           "type": "hotspot",
@@ -411,11 +411,11 @@
     "hero",
     "choose-bike",
     "men-women",
+    "product-highlight",
     "brand-strip",
     "special-offers",
     "testimonials",
     "news",
-    "contact-strip",
-    "product_feature_PEkHdP"
+    "contact-strip"
   ]
 }
