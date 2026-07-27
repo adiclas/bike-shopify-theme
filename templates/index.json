@@ -118,6 +118,106 @@
         "divider_text": "DISCOUNT UPTO75%"
       }
     },
+    "product-highlight": {
+      "type": "product-highlight",
+      "blocks": {
+        "hotspot_HLxVBj": {
+          "type": "hotspot",
+          "settings": {
+            "side": "right",
+            "x": 85,
+            "y": 50,
+            "text": "Lightweight"
+          }
+        },
+        "stat_Cz4Eze": {
+          "type": "stat",
+          "settings": {
+            "value": "956",
+            "label": "Frames"
+          }
+        },
+        "stat_x8Vmap": {
+          "type": "stat",
+          "settings": {
+            "value": "1215",
+            "label": "Frames"
+          }
+        },
+        "stat_aW9GRa": {
+          "type": "stat",
+          "settings": {
+            "value": "3126",
+            "label": "Powert"
+          }
+        },
+        "stat_wqA6Bd": {
+          "type": "stat",
+          "settings": {
+            "value": "5265",
+            "label": "Cross"
+          }
+        },
+        "hotspot_cM8bCw": {
+          "type": "hotspot",
+          "settings": {
+            "side": "left",
+            "x": 13,
+            "y": 50,
+            "text": "Lightweight"
+          }
+        },
+        "hotspot_MQXcXA": {
+          "type": "hotspot",
+          "settings": {
+            "side": "left",
+            "x": 32,
+            "y": 18,
+            "text": "Fluid Cable Management"
+          }
+        },
+        "hotspot_7aexDP": {
+          "type": "hotspot",
+          "settings": {
+            "side": "right",
+            "x": 62,
+            "y": 8,
+            "text": "Dialed Geometry Design"
+          }
+        },
+        "hotspot_xKiMyi": {
+          "type": "hotspot",
+          "settings": {
+            "side": "right",
+            "x": 78,
+            "y": 78,
+            "text": "Advanced Seatpost"
+          }
+        }
+      },
+      "block_order": [
+        "hotspot_HLxVBj",
+        "stat_Cz4Eze",
+        "stat_x8Vmap",
+        "stat_aW9GRa",
+        "stat_wqA6Bd",
+        "hotspot_cM8bCw",
+        "hotspot_MQXcXA",
+        "hotspot_7aexDP",
+        "hotspot_xKiMyi"
+      ],
+      "name": "Produkt-Highlight",
+      "settings": {
+        "brand": "CERVELO",
+        "subtitle": "Limited time offer only on Go Shop",
+        "bike_image": "shopify://shop_images/ZnnHZZbWFbowe0Or_0K0CAA111A-PROFILE.webp",
+        "rider_image": "shopify://shop_images/R.png",
+        "price": "1150",
+        "compare_at_price": "1850",
+        "cta_link": "",
+        "cta_label": "Add to cart"
+      }
+    },
     "brand-strip": {
       "type": "brand-strip",
       "blocks": {
@@ -264,7 +364,9 @@
             "year": "2025",
             "title": "How to choose the best bike",
             "text": "Vitae platea donec senectus sed.",
-            "link": ""
+            "link": "",
+            "image": "shopify://shop_images/SPD_8279_2560x800_321264a4-5816-403f-99f9-b37c2184f235.jpg",
+            "image_style": "background"
           }
         },
         "post_66MF67": {
@@ -275,7 +377,9 @@
             "year": "2025",
             "title": "How to choose the best bike",
             "text": "Vitae platea donec senectus sed.",
-            "link": ""
+            "link": "",
+            "image": "shopify://shop_images/blog-fahrradhelm-auswechseln-nach-sturz_904b863f-4b81-40e1-9168-d0c2f76e211b.jpg",
+            "image_style": "background"
           }
         },
         "post_R9hNc6": {
@@ -286,7 +390,9 @@
             "year": "2025",
             "title": "How to choose the best bike",
             "text": "Vitae platea donec senectus sed.",
-            "link": ""
+            "link": "",
+            "image": "shopify://shop_images/Platzangst_Juni_2019_JPG_stephanpetersdesign-de-27_2560x800_787ed7ba-7e30-48a9-b1a8-0c014b31404d.jpg",
+            "image_style": "background"
           }
         }
       },
@@ -295,106 +401,9 @@
         "post_66MF67",
         "post_R9hNc6"
       ],
-      "settings": {}
-    },
-    "product-highlight": {
-      "type": "product-highlight",
-      "blocks": {
-        "hotspot_HLxVBj": {
-          "type": "hotspot",
-          "settings": {
-            "side": "right",
-            "x": 85,
-            "y": 50,
-            "text": "Lightweight"
-          }
-        },
-        "stat_Cz4Eze": {
-          "type": "stat",
-          "settings": {
-            "value": "956",
-            "label": "Frames"
-          }
-        },
-        "stat_x8Vmap": {
-          "type": "stat",
-          "settings": {
-            "value": "1215",
-            "label": "Frames"
-          }
-        },
-        "stat_aW9GRa": {
-          "type": "stat",
-          "settings": {
-            "value": "3126",
-            "label": "Powert"
-          }
-        },
-        "stat_wqA6Bd": {
-          "type": "stat",
-          "settings": {
-            "value": "5265",
-            "label": "Cross"
-          }
-        },
-        "hotspot_cM8bCw": {
-          "type": "hotspot",
-          "settings": {
-            "side": "left",
-            "x": 13,
-            "y": 50,
-            "text": "Lightweight"
-          }
-        },
-        "hotspot_MQXcXA": {
-          "type": "hotspot",
-          "settings": {
-            "side": "left",
-            "x": 32,
-            "y": 18,
-            "text": "Fluid Cable Management"
-          }
-        },
-        "hotspot_7aexDP": {
-          "type": "hotspot",
-          "settings": {
-            "side": "right",
-            "x": 62,
-            "y": 8,
-            "text": "Dialed Geometry Design"
-          }
-        },
-        "hotspot_xKiMyi": {
-          "type": "hotspot",
-          "settings": {
-            "side": "right",
-            "x": 78,
-            "y": 78,
-            "text": "Advanced Seatpost"
-          }
-        }
-      },
-      "block_order": [
-        "hotspot_HLxVBj",
-        "stat_Cz4Eze",
-        "stat_x8Vmap",
-        "stat_aW9GRa",
-        "stat_wqA6Bd",
-        "hotspot_cM8bCw",
-        "hotspot_MQXcXA",
-        "hotspot_7aexDP",
-        "hotspot_xKiMyi"
-      ],
-      "name": "Produkt-Highlight",
       "settings": {
-        "brand": "CERVELO",
-        "subtitle": "Limited time offer only on Go Shop",
-        "bike_image": "shopify://shop_images/ZnnHZZbWFbowe0Or_0K0CAA111A-PROFILE.webp",
-        "rider_image": "shopify://shop_images/R.png",
-        "price": "1150",
-        "compare_at_price": "1850",
-        "cta_link": "",
-        "cta_label": "Add to cart"
+        "heading": "Latest news",
+        "subtitle": "Stay in the know"
       }
     }
   },
