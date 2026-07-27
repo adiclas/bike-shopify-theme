@@ -24,8 +24,6 @@
           <h3>{{ block.settings.heading }}</h3>
           {% if block.settings.menu != blank %}
             <ul>{% for link in block.settings.menu.links %}<li><a href="{{ link.url }}">{{ link.title }}</a></li>{% endfor %}</ul>
-          {% else %}
-            <ul>{% for i in (1..6) %}<li><a href="{{ block.settings.item_link }}">{{ block.settings.item_label }}</a></li>{% endfor %}</ul>
           {% endif %}
         </div>
       {% endif %}
@@ -83,9 +81,15 @@
       "name": "Menüspalte",
       "settings": [
         { "type": "text", "id": "heading", "label": "Titel", "default": "Service & Info" },
-        { "type": "link_list", "id": "menu", "label": "Menü" },
-        { "type": "text", "id": "item_label", "label": "Fallback-Linktext", "default": "Link" },
-        { "type": "url", "id": "item_link", "label": "Fallback-Link" }
+        { "type": "link_list", "id": "menu", "label": "Menü" }
+      ]
+    },
+    {
+      "type": "link_item",
+      "name": "Link",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Text" },
+        { "type": "url", "id": "url", "label": "Link" }
       ]
     }
   ]

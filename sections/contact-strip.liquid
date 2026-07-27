@@ -1,31 +1,24 @@
-<section class="contact-strip">
-  <div class="container contact-strip__grid">
-    <div class="contact-strip__info">
-      <a class="site-logo site-logo--footer" href="{{ routes.root_url }}">
-        <span class="site-logo__mark">↗</span>
-        <span class="site-logo__text"><strong>{{ section.settings.logo_top }}</strong><em>{{ section.settings.logo_sub }}</em></span>
-      </a>
-      <p>{{ section.settings.description }}</p>
+<section class="contact-band section-spacing">
+  <div class="container contact-band__grid">
+    <div class="contact-band__info">
+      <h2>{{ section.settings.heading }}</h2>
+      <p>{{ section.settings.text }}</p>
     </div>
-    <div class="contact-strip__hours">
-      <h3>{{ section.settings.hours_heading }}</h3>
-      <ul>
-        <li><span>Mon – Fri</span><span>08:00 – 18:00</span></li>
-        <li><span>Saturday</span><span>09:00 – 14:00</span></li>
-        <li><span>Sunday</span><span>Closed</span></li>
-      </ul>
+    <div class="contact-band__actions">
+      {% if section.settings.phone != blank %}<a class="contact-band__btn" href="tel:{{ section.settings.phone | remove: ' ' }}">📞 {{ section.settings.phone }}</a>{% endif %}
+      {% if section.settings.email != blank %}<a class="contact-band__btn" href="mailto:{{ section.settings.email }}">✉ {{ section.settings.email }}</a>{% endif %}
     </div>
   </div>
 </section>
 
 {% schema %}
 {
-  "name": "Kontakt-Strip",
+  "name": "Kontakt-Band",
   "settings": [
-    { "type": "text", "id": "logo_top", "label": "Logo (Teil 1)", "default": "Bike" },
-    { "type": "text", "id": "logo_sub", "label": "Logo (Teil 2)", "default": "MailOrder" },
-    { "type": "textarea", "id": "description", "label": "Beschreibung", "default": "Bikemalorder is one of the most powerful and Feature Loaded Premium Shopify themes that smoothly work with any kind of store." },
-    { "type": "text", "id": "hours_heading", "label": "Stunden-Heading", "default": "Opening hours" }
+    { "type": "text", "id": "heading", "label": "Überschrift", "default": "Du hast Fragen?" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Wir helfen dir gerne weiter – von Bike-Profis für dich." },
+    { "type": "text", "id": "phone", "label": "Telefon", "default": "0 800 555 1234" },
+    { "type": "text", "id": "email", "label": "E-Mail", "default": "support@bikemailorder.test" }
   ]
 }
 {% endschema %}
