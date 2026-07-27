@@ -11,7 +11,7 @@
     <ul class="product-highlight__stats">
       {% for block in section.blocks %}
         {% if block.type == 'stat' %}
-          <li {{ block.shopify_attributes }}><strong>{{ block.settings.value }}</strong><span>{{ block.settings.label }}</span></li>
+          <li {{ block.shopify_attributes }}><strong data-count data-count-from="{{ block.settings.value_from }}" data-count-to="{{ block.settings.value }}" data-count-duration="1500">{{ block.settings.value }}</strong><span>{{ block.settings.label }}</span></li>
         {% endif %}
       {% endfor %}
     </ul>
@@ -64,7 +64,8 @@
       "type": "stat",
       "name": "Statistik",
       "settings": [
-        { "type": "text", "id": "value", "label": "Wert", "default": "956" },
+        { "type": "text", "id": "value", "label": "Wert (Endwert)", "default": "956" },
+        { "type": "text", "id": "value_from", "label": "Startwert der Animation", "default": "0" },
         { "type": "text", "id": "label", "label": "Label", "default": "Frames" }
       ]
     },
@@ -82,10 +83,10 @@
   "presets": [{
     "name": "Produkt-Highlight",
     "blocks": [
-      { "type": "stat", "settings": { "value": "956", "label": "Frames" } },
-      { "type": "stat", "settings": { "value": "1215", "label": "Frames" } },
-      { "type": "stat", "settings": { "value": "3126", "label": "Powert" } },
-      { "type": "stat", "settings": { "value": "5265", "label": "Cross" } },
+      { "type": "stat", "settings": { "value": "956", "value_from": "0", "label": "Frames" } },
+      { "type": "stat", "settings": { "value": "1215", "value_from": "0", "label": "Frames" } },
+      { "type": "stat", "settings": { "value": "3126", "value_from": "0", "label": "Powert" } },
+      { "type": "stat", "settings": { "value": "5265", "value_from": "0", "label": "Cross" } },
       { "type": "hotspot", "settings": { "x": 12, "y": 50, "text": "Lightweight" } },
       { "type": "hotspot", "settings": { "x": 32, "y": 18, "text": "Fluid Cable Management" } },
       { "type": "hotspot", "settings": { "x": 62, "y": 8, "text": "Dialed Geometry Design" } },
