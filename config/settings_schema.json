@@ -1,7 +1,7 @@
 [
   {
     "name": "theme_info",
-    "theme_name": "Trailbound",
+    "theme_name": "Bike Mailorder Theme",
     "theme_version": "0.1.0",
     "theme_author": "Bike Mailorder",
     "theme_documentation_url": "https://shopify.dev/docs/storefronts/themes",
@@ -44,7 +44,7 @@
     "name": "Branding",
     "settings": [
       { "type": "image_picker", "id": "logo", "label": "Logo" },
-      { "type": "text", "id": "logo_text", "label": "Logo-Text", "default": "TRAILBOUND" },
+      { "type": "text", "id": "logo_text", "label": "Logo-Text", "default": "BIKE MAILORDER" },
       { "type": "text", "id": "support_text", "label": "Service-Hinweis", "default": "Persönliche Beratung von Bike-Fans" }
     ]
   }
