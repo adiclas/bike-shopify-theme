@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
@@ -296,7 +305,117 @@
         "description": "Bikemailorder is one of the most powerful and Feature Loaded Premium Shopify themes that smoothly work with any kind of store.",
         "hours_heading": "Opening hours"
       }
+    },
+    "product_feature_PEkHdP": {
+      "type": "product-feature",
+      "blocks": {
+        "hotspot_HLxVBj": {
+          "type": "hotspot",
+          "settings": {
+            "side": "right",
+            "x": 85,
+            "y": 50,
+            "text": "Lightweight"
+          }
+        },
+        "stat_Cz4Eze": {
+          "type": "stat",
+          "settings": {
+            "value": "956",
+            "label": "Frames"
+          }
+        },
+        "stat_x8Vmap": {
+          "type": "stat",
+          "settings": {
+            "value": "1215",
+            "label": "Frames"
+          }
+        },
+        "stat_aW9GRa": {
+          "type": "stat",
+          "settings": {
+            "value": "3126",
+            "label": "Powert"
+          }
+        },
+        "stat_wqA6Bd": {
+          "type": "stat",
+          "settings": {
+            "value": "5265",
+            "label": "Cross"
+          }
+        },
+        "hotspot_cM8bCw": {
+          "type": "hotspot",
+          "settings": {
+            "side": "left",
+            "x": 13,
+            "y": 50,
+            "text": "Lightweight"
+          }
+        },
+        "hotspot_MQXcXA": {
+          "type": "hotspot",
+          "settings": {
+            "side": "left",
+            "x": 32,
+            "y": 18,
+            "text": "Fluid Cable Management"
+          }
+        },
+        "hotspot_7aexDP": {
+          "type": "hotspot",
+          "settings": {
+            "side": "right",
+            "x": 62,
+            "y": 8,
+            "text": "Dialed Geometry Design"
+          }
+        },
+        "hotspot_xKiMyi": {
+          "type": "hotspot",
+          "settings": {
+            "side": "right",
+            "x": 78,
+            "y": 78,
+            "text": "Advanced Seatpost"
+          }
+        }
+      },
+      "block_order": [
+        "hotspot_HLxVBj",
+        "stat_Cz4Eze",
+        "stat_x8Vmap",
+        "stat_aW9GRa",
+        "stat_wqA6Bd",
+        "hotspot_cM8bCw",
+        "hotspot_MQXcXA",
+        "hotspot_7aexDP",
+        "hotspot_xKiMyi"
+      ],
+      "name": "Produkt-Highlight",
+      "settings": {
+        "brand": "CERVELO",
+        "subtitle": "Limited time offer only on Go Shop",
+        "bike_image": "shopify://shop_images/ZnnHZZbWFbowe0Or_0K0CAA111A-PROFILE.webp",
+        "rider_image": "shopify://shop_images/R.png",
+        "price": "1150",
+        "compare_at_price": "1850",
+        "cta_link": "",
+        "cta_label": "Add to cart"
+      }
     }
   },
-  "order": ["hero", "choose-bike", "men-women", "product-highlight", "brand-strip", "special-offers", "testimonials", "news", "contact-strip"]
+  "order": [
+    "hero",
+    "choose-bike",
+    "men-women",
+    "brand-strip",
+    "special-offers",
+    "testimonials",
+    "news",
+    "contact-strip",
+    "product_feature_PEkHdP"
+  ]
 }
