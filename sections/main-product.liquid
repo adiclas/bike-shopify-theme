@@ -1,11 +1,17 @@
 <section class="main-product section-spacing" data-product-section data-product-id="{{ product.id }}" data-product-title="{{ product.title | escape }}" data-product-vendor="{{ product.vendor | escape }}" data-product-image="{{ product.featured_image | image_url: width: 800 | escape }}" data-product-price="{{ product.price | money | escape }}" data-product-url="{{ product.url }}">
   <script>document.body.dataset.currentProductId='{{ product.id }}';document.dispatchEvent(new CustomEvent('recently-viewed:track',{detail:{id:'{{ product.id }}',url:'{{ product.url }}',title:{{ product.title | json }},vendor:{{ product.vendor | json }},price:{{ product.price | money | json }},image:{{ product.featured_image | image_url: width: 800 | json }}}}));</script>
   <div class="container product-layout">
-    <div class="product-gallery">
+    <div class="product-gallery" data-product-gallery data-product-media="{{ product.media | json | escape }}">
+      <button type="button" class="product-gallery__zoom-hint" data-zoom-hint hidden aria-label="Bild vergrößern">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 9l4 4-4 4M19 9l-4 4 4 4"/></svg>
+      </button>
       {% for media in product.media %}
-        <div class="product-gallery__item">{{ media.preview_image | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '500,900,1200,1600', alt: media.alt }}</div>
+        <button type="button" class="product-gallery__item{% if forloop.first %} product-gallery__item--main{% endif %}" data-gallery-item data-media-index="{{ forloop.index0 }}">
+          {{ media.preview_image | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '500,900,1200,1600', alt: media.alt | default: product.title, class: 'product-gallery__image' }}
+          <span class="visually-hidden">Bild {{ forloop.index }} öffnen</span>
+        </button>
       {% else %}
-        <div class="product-gallery__item product-gallery__placeholder">Produktbild</div>
+        <div class="product-gallery__placeholder">Produktbild</div>
       {% endfor %}
     </div>
     <div class="product-info">
@@ -18,7 +24,10 @@
       {% if product.description != blank %}<div class="product-description rte">{{ product.description }}</div>{% endif %}
       {% form 'product', product, class: 'product-form' %}
         {% unless product.has_only_default_variant %}
-          <label for="Variant-{{ section.id }}">Variante</label>
+          <div class="variant-row">
+            <label for="Variant-{{ section.id }}">Variante</label>
+            <button type="button" class="size-guide-trigger" data-size-guide-open aria-label="Größentabelle anzeigen">Größentabelle ↗</button>
+          </div>
           <select id="Variant-{{ section.id }}" name="id" data-variant-select>
             {% for variant in product.variants %}<option value="{{ variant.id }}" data-price="{{ variant.price | money | escape }}"{% unless variant.available %} disabled{% endunless %}{% if variant == product.selected_or_first_available_variant %} selected{% endif %}>{{ variant.title }}{% unless variant.available %} · Ausverkauft{% endunless %}</option>{% endfor %}
           </select>
@@ -28,16 +37,195 @@
         <div class="quantity-row"><label for="Quantity-{{ section.id }}">Menge</label><input id="Quantity-{{ section.id }}" type="number" name="quantity" value="1" min="1"></div>
         <button class="button button--accent button--wide" type="submit"{% unless product.selected_or_first_available_variant.available %} disabled{% endunless %}>{% if product.selected_or_first_available_variant.available %}In den Warenkorb{% else %}Ausverkauft{% endif %}</button>
       {% endform %}
-      <div class="product-assurances"><span>✓ Sichere Zahlung</span><span>✓ 30 Tage Rückgabe</span><span>✓ Persönlicher Support</span></div>
+      <div class="product-assurances">
+        <span><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Sichere Zahlung</span>
+        <span><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="13" height="11" rx="1"/><path d="M16 10h4l-2 7H8"/></svg>Kostenloser Versand</span>
+        <span><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7l3-3h12l3 3v10l-3 3H6l-3-3V7z"/><path d="M9 12l2 2 4-4"/></svg>30 Tage Rückgabe</span>
+      </div>
     </div>
+  </div>
+
+  {% if collections['often-bought-with'] != blank or section.settings.bundle_product_1 != blank or section.settings.bundle_product_2 != blank or section.settings.bundle_product_3 != blank %}
+    <div class="bundle" data-bundle data-bundle-current-id="{{ product.selected_or_first_available_variant.id }}">
+      <p class="eyebrow">Often bought with</p>
+      <h3>Oft zusammen gekauft</h3>
+      <ul class="bundle__items">
+        <li class="bundle__current">
+          {% if product.featured_image %}{{ product.featured_image | image_url: width: 240 | image_tag: loading: 'lazy', widths: '120,240', alt: product.title }}{% endif %}
+          <div>
+            <p class="bundle__name">{{ product.title }}</p>
+            <p class="bundle__price">{{ product.selected_or_first_available_variant.price | money }}</p>
+          </div>
+        </li>
+        {% assign bundle_handles = section.settings.bundle_product_1 | append: '||' | append: section.settings.bundle_product_2 | append: '||' | append: section.settings.bundle_product_3 %}
+        {% assign bundle_list = bundle_handles | split: '||' %}
+        {% assign bundle_count = 0 %}
+        {% for handle in bundle_list %}
+          {% if handle != blank %}
+            {% assign bundle_handle = handle | handle %}
+            {% assign bundle_product = all_products[bundle_handle] %}
+            {% if bundle_product != blank %}
+              {% assign bundle_count = bundle_count | plus: 1 %}
+              <li class="bundle__item">
+                <a href="{{ bundle_product.url }}">{% if bundle_product.featured_image %}{{ bundle_product.featured_image | image_url: width: 240 | image_tag: loading: 'lazy', widths: '120,240', alt: bundle_product.title }}{% endif %}</a>
+                <div>
+                  <a class="bundle__name" href="{{ bundle_product.url }}">{{ bundle_product.title }}</a>
+                  <p class="bundle__price">{{ bundle_product.selected_or_first_available_variant.price | money }}</p>
+                </div>
+              </li>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      </ul>
+      <form id="BundleForm" action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data" class="bundle__form">
+        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+        <input type="hidden" name="quantity" value="1">
+        {% assign bundle_index = 0 %}
+        {% for handle in bundle_list %}
+          {% if handle != blank %}
+            {% assign bundle_handle = handle | handle %}
+            {% assign bundle_product = all_products[bundle_handle] %}
+            {% if bundle_product != blank %}
+              <input type="hidden" name="items[{{ bundle_index }}][id]" value="{{ bundle_product.selected_or_first_available_variant.id }}">
+              <input type="hidden" name="items[{{ bundle_index }}][quantity]" value="1">
+              {% assign bundle_index = bundle_index | plus: 1 %}
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+        {% if bundle_count > 0 %}
+          <button type="submit" class="button button--accent">Alle in den Warenkorb — {{ bundle_count | plus: 1 }} Artikel</button>
+        {% endif %}
+      </form>
+    </div>
+  {% endif %}
+
+  <div class="size-guide" data-size-guide hidden role="dialog" aria-modal="true" aria-label="Größentabelle" tabindex="-1">
+    <div class="size-guide__overlay" data-size-guide-close></div>
+    <div class="size-guide__panel" role="document">
+      <button type="button" class="size-guide__close" data-size-guide-close aria-label="Schließen">×</button>
+      <h2>Größentabelle</h2>
+      <p class="size-guide__sub">Missungen in Zentimetern. Im Zweifel eine Nummer größer wählen.</p>
+      <table class="size-guide__table">
+        <thead>
+          <tr><th>Größe</th><th>Brust</th><th>Taille</th><th>Hüfte</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>XS</th><td>82–86</td><td>66–70</td><td>88–92</td></tr>
+          <tr><th>S</th><td>86–90</td><td>70–74</td><td>92–96</td></tr>
+          <tr><th>M</th><td>90–94</td><td>74–78</td><td>96–100</td></tr>
+          <tr><th>L</th><td>94–98</td><td>78–82</td><td>100–104</td></tr>
+          <tr><th>XL</th><td>98–102</td><td>82–86</td><td>104–108</td></tr>
+          <tr><th>XXL</th><td>102–106</td><td>86–90</td><td>108–112</td></tr>
+        </tbody>
+      </table>
+      <a class="size-guide__help" href="/pages/size-help">Brauchst du Hilfe bei der Größenwahl?</a>
+    </div>
+  </div>
+
+  <div class="lightbox" data-lightbox hidden role="dialog" aria-modal="true" aria-label="Produktbild-Galerie" tabindex="-1">
+    <button type="button" class="lightbox__close" data-lightbox-close aria-label="Galerie schließen">×</button>
+    <button type="button" class="lightbox__nav lightbox__nav--prev" data-lightbox-prev aria-label="Vorheriges Bild">‹</button>
+    <button type="button" class="lightbox__nav lightbox__nav--next" data-lightbox-next aria-label="Nächstes Bild">›</button>
+    <div class="lightbox__content" data-lightbox-content></div>
+    <div class="lightbox__caption" data-lightbox-caption></div>
+    <ol class="lightbox__thumbs" data-lightbox-thumbs role="tablist"></ol>
+    <button type="button" class="lightbox__zoom" data-lightbox-zoom aria-label="Vergrößern/verkleinern">⛶</button>
   </div>
 </section>
 
+<script>
+  (function() {
+    const sizeGuide = document.querySelector('[data-size-guide]');
+    if (sizeGuide) {
+      const openGuide = () => { sizeGuide.removeAttribute('hidden'); document.body.classList.add('size-guide-open'); };
+      const closeGuide = () => { sizeGuide.setAttribute('hidden', ''); document.body.classList.remove('size-guide-open'); };
+      document.querySelectorAll('[data-size-guide-open]').forEach((trigger) => trigger.addEventListener('click', openGuide));
+      document.querySelectorAll('[data-size-guide-close]').forEach((close) => close.addEventListener('click', closeGuide));
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && !sizeGuide.hasAttribute('hidden')) closeGuide();
+      });
+    }
+    const gallery = document.querySelector('[data-product-gallery]');
+    if (!gallery) return;
+    const lightbox = document.querySelector('[data-lightbox]');
+    const lightContent = document.querySelector('[data-lightbox-content]');
+    const lightThumbs = document.querySelector('[data-lightbox-thumbs]');
+    const lightCaption = document.querySelector('[data-lightbox-caption]');
+    const lightZoomBtn = document.querySelector('[data-lightbox-zoom]');
+    let media = [];
+    try { media = JSON.parse(gallery.dataset.productMedia || '[]'); } catch (e) { media = []; }
+    if (!Array.isArray(media) || media.length === 0) {
+      const items = gallery.querySelectorAll('[data-gallery-item]');
+      media = Array.from(items).map((item, index) => ({
+        src: item.querySelector('img')?.src || '',
+        alt: item.querySelector('img')?.alt || '',
+        preview: item.querySelector('img')?.currentSrc || ''
+      }));
+    }
+    let currentIndex = 0;
+    let zoomed = false;
+    const mediaAspect = (item) => item && item.aspect_ratio ? item.aspect_ratio : 1;
+    const renderItem = (index) => {
+      const item = media[index];
+      if (!item || !lightContent) return;
+      const w = 1600;
+      const imgSrc = (item.preview || item.src || '').replace(/_\d+x\d+(\.[a-z]+)?$/, '_' + w + 'x' + Math.round(w / mediaAspect(item)) + '$1') + (item.src && item.src.indexOf('?') > -1 ? (item.src.substring(item.src.indexOf('?'))) : '');
+      lightContent.innerHTML = `<img src="${item.preview || item.src || imgSrc}" alt="${(item.alt || '').replace(/"/g, '&quot;')}" data-lightbox-img>`;
+      lightCaption.textContent = item.alt || '';
+      lightThumbs.querySelectorAll('li').forEach((li, i) => li.classList.toggle('is-active', i === index));
+    };
+    if (lightThumbs) {
+      media.forEach((item, index) => {
+        const li = document.createElement('li');
+        li.innerHTML = `<button type="button" data-lightbox-thumb="${index}" aria-label="Bild ${index + 1} anzeigen"><img src="${item.preview || item.src}" alt=""></button>`;
+        lightThumbs.appendChild(li);
+      });
+      lightThumbs.querySelectorAll('[data-lightbox-thumb]').forEach((thumb) => thumb.addEventListener('click', () => { open(parseInt(thumb.dataset.lightboxThumb, 10)); }));
+    }
+    const open = (index) => {
+      if (!lightbox || media.length === 0) return;
+      currentIndex = (index + media.length) % media.length;
+      lightbox.removeAttribute('hidden');
+      lightbox.focus();
+      document.body.classList.add('lightbox-open');
+      renderItem(currentIndex);
+    };
+    const close = () => {
+      if (!lightbox) return;
+      lightbox.setAttribute('hidden', '');
+      document.body.classList.remove('lightbox-open');
+    };
+    document.querySelectorAll('[data-gallery-item]').forEach((item) => {
+      item.addEventListener('click', () => open(parseInt(item.dataset.mediaIndex, 10)));
+    });
+    document.querySelector('[data-lightbox-close]')?.addEventListener('click', close);
+    document.querySelector('[data-lightbox-prev]')?.addEventListener('click', () => open(currentIndex - 1));
+    document.querySelector('[data-lightbox-next]')?.addEventListener('click', () => open(currentIndex + 1));
+    lightZoomBtn?.addEventListener('click', () => {
+      const img = lightContent.querySelector('img');
+      if (img) {
+        zoomed = !zoomed;
+        img.classList.toggle('is-zoomed', zoomed);
+      }
+    });
+    document.addEventListener('keydown', (event) => {
+      if (!lightbox || lightbox.hasAttribute('hidden')) return;
+      if (event.key === 'Escape') close();
+      if (event.key === 'ArrowLeft') open(currentIndex - 1);
+      if (event.key === 'ArrowRight') open(currentIndex + 1);
+    });
+  })();
+</script>
 {% section 'recently-viewed' %}
 
 {% schema %}
 {
   "name": "Produktinformationen",
-  "settings": []
+  "settings": [
+    { "type": "header", "content": "Often bought with" },
+    { "type": "text", "id": "bundle_product_1", "label": "Bundle-Produkt 1 (Handle)", "info": "z. B. \"pump-track-helmet\". Leer lassen, um den Slot auszublenden." },
+    { "type": "text", "id": "bundle_product_2", "label": "Bundle-Produkt 2 (Handle)" },
+    { "type": "text", "id": "bundle_product_3", "label": "Bundle-Produkt 3 (Handle)" }
+  ]
 }
 {% endschema %}
