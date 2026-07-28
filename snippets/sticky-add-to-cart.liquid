@@ -1,0 +1,114 @@
+{% if template == 'product' %}
+  {% assign sticky_product = product %}
+  {% if sticky_product and sticky_product.id %}
+    <aside class="sticky-bar" data-sticky-bar hidden aria-label="Schnellkauf">
+      <div class="container sticky-bar__inner">
+        <a class="sticky-bar__product" href="{{ sticky_product.url }}">
+          {% if sticky_product.featured_image != blank %}
+            <span class="sticky-bar__image">
+              {{ sticky_product.featured_image | image_url: width: 160 | image_tag: loading: 'lazy', widths: '80,160', alt: sticky_product.title }}
+            </span>
+          {% endif %}
+          <span class="sticky-bar__meta">
+            <strong class="sticky-bar__title">{{ sticky_product.title }}</strong>
+            <span class="sticky-bar__vendor">{{ sticky_product.vendor }}</span>
+          </span>
+        </a>
+        <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data" class="sticky-bar__form">
+          {% unless sticky_product.has_only_default_variant %}
+            <label class="visually-hidden" for="StickyVariant">Variante</label>
+            <select id="StickyVariant" name="id" class="sticky-bar__select" data-sticky-variant>
+              {% for variant in sticky_product.variants %}
+                <option value="{{ variant.id }}" data-price="{{ variant.price | money | escape }}"{% unless variant.available %} disabled{% endunless %}{% if variant == sticky_product.selected_or_first_available_variant %} selected{% endif %}>{{ variant.title }}{% unless variant.available %} · Ausverkauft{% endunless %}</option>
+              {% endfor %}
+            </select>
+          {% else %}
+            <input type="hidden" name="id" value="{{ sticky_product.selected_or_first_available_variant.id }}">
+          {% endunless %}
+          <label class="visually-hidden" for="StickyQuantity">Menge</label>
+          <input id="StickyQuantity" type="number" name="quantity" value="1" min="1" class="sticky-bar__qty">
+          <span class="sticky-bar__price" data-sticky-price>{{ sticky_product.selected_or_first_available_variant.price | money }}</span>
+          <button type="submit" class="button button--accent sticky-bar__add"{% unless sticky_product.selected_or_first_available_variant.available %} disabled{% endunless %}>In den Warenkorb</button>
+        </form>
+        <button type="button" class="sticky-bar__close" data-sticky-close aria-label="Schnellkauf schließen">×</button>
+      </div>
+    </aside>
+    <script>
+      (function() {
+        const bar = document.querySelector('[data-sticky-bar]');
+        if (!bar) return;
+        const sentinel = document.querySelector('.product-form');
+        const stickySelect = document.querySelector('[data-sticky-variant]');
+        const mainSelect = document.querySelector('[data-variant-select]');
+        const stickyPrice = document.querySelector('[data-sticky-price]');
+        const stickyClose = document.querySelector('[data-sticky-close]');
+        const dismissed = sessionStorage.getItem('tb_sticky_dismissed') === '1';
+        if ('IntersectionObserver' in window && sentinel) {
+          const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+              if (dismissed) return;
+              if (!entry.isIntersecting) {
+                bar.removeAttribute('hidden');
+                requestAnimationFrame(() => bar.classList.add('is-visible'));
+              } else {
+                bar.classList.remove('is-visible');
+                setTimeout(() => { if (!bar.classList.contains('is-visible')) bar.setAttribute('hidden', ''); }, 240);
+              }
+            });
+          }, { rootMargin: '0px 0px -120px 0px', threshold: 0 });
+          observer.observe(sentinel);
+        } else {
+          window.addEventListener('scroll', () => {
+            if (dismissed) return;
+            const rect = sentinel ? sentinel.getBoundingClientRect() : null;
+            if (rect && rect.bottom < 0) bar.removeAttribute('hidden'); else bar.setAttribute('hidden', '');
+          }, { passive: true });
+        }
+        if (stickyClose) {
+          stickyClose.addEventListener('click', () => {
+            sessionStorage.setItem('tb_sticky_dismissed', '1');
+            bar.classList.remove('is-visible');
+            setTimeout(() => bar.setAttribute('hidden', ''), 200);
+          });
+        }
+        if (stickySelect && mainSelect) {
+          const sync = (source, target) => {
+            const match = Array.from(target.options).find((opt) => opt.value === source.value);
+            if (match) {
+              target.value = source.value;
+              target.dispatchEvent(new Event('change', { bubbles: true }));
+            }
+          };
+          stickySelect.addEventListener('change', () => { sync(stickySelect, mainSelect); });
+          mainSelect.addEventListener('change', () => {
+            sync(mainSelect, stickySelect);
+            const money = mainSelect.options[mainSelect.selectedIndex]?.dataset?.price;
+            if (money && stickyPrice) stickyPrice.textContent = money;
+          });
+        }
+      })();
+    </script>
+  {% endif %}
+{% endif %}
+
+<style>
+  .sticky-bar{position:fixed;left:0;right:0;bottom:0;z-index:60;background:#fff;border-top:1px solid var(--color-border);box-shadow:0 -10px 30px rgba(0,0,0,.12);transform:translateY(100%);transition:transform .25s ease-out}
+  .sticky-bar.is-visible{transform:none}
+  .sticky-bar__inner{display:flex;align-items:center;gap:14px;padding:12px 0}
+  .sticky-bar__product{display:flex;align-items:center;gap:12px;color:var(--color-text);text-decoration:none;flex:0 0 auto;max-width:260px}
+  .sticky-bar__product:hover{color:var(--color-accent)}
+  .sticky-bar__image{width:48px;height:48px;border-radius:4px;overflow:hidden;background:#fff;display:block}
+  .sticky-bar__image img{width:100%;height:100%;object-fit:cover}
+  .sticky-bar__title{display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;line-clamp:1;overflow:hidden;font-size:.85rem;font-weight:700;color:inherit}
+  .sticky-bar__vendor{display:block;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--color-muted);margin-top:2px}
+  .sticky-bar__form{display:flex;align-items:center;gap:10px;flex:1;justify-content:flex-end}
+  .sticky-bar__select,.sticky-bar__qty{min-height:42px;padding:0 10px;border:1px solid var(--color-border);border-radius:4px;font-size:.8rem;background:#fff;color:var(--color-text)}
+  .sticky-bar__qty{width:64px;text-align:center}
+  .sticky-bar__price{font-family:var(--font-heading);font-size:1.05rem;font-weight:800;color:var(--color-text);min-width:70px;text-align:right}
+  .sticky-bar__add{min-width:160px}
+  .sticky-bar__close{appearance:none;background:transparent;border:0;color:var(--color-muted);font-size:1.2rem;cursor:pointer;line-height:1}
+  .sticky-bar__close:hover{color:var(--color-accent)}
+  body.has-sticky-bar{padding-bottom:90px}
+  @media(max-width:800px){.sticky-bar__product{max-width:160px}.sticky-bar__vendor{display:none}.sticky-bar__add{min-width:120px}.sticky-bar__price{display:none}}
+  @media(max-width:480px){.sticky-bar__select,.sticky-bar__vendor{display:none}}
+</style>

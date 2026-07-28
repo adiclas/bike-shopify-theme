@@ -1,0 +1,68 @@
+<section class="usp-bar" aria-label="Vertrauenssignale">
+  <div class="container usp-bar__inner">
+    {%- if section.blocks.size > 0 -%}
+      {%- for block in section.blocks -%}
+        <div class="usp-bar__item" {{ block.shopify_attributes }}>
+          {% if block.settings.icon != blank %}{{ block.settings.icon }}{% else %}
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>
+          {% endif %}
+          <span class="usp-bar__text">{{ block.settings.text }}</span>
+        </div>
+      {%- endfor -%}
+    {%- else -%}
+      <div class="usp-bar__item">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6" width="13" height="11" rx="1"/><path d="M15 10h4l-2 7H8"/></svg>
+        <span class="usp-bar__text">Kostenloser Versand ab 99 €</span>
+      </div>
+      <div class="usp-bar__item">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7l3-3h12l3 3v10l-3 3H6l-3-3V7z"/><path d="M9 12l2 2 4-4"/></svg>
+        <span class="usp-bar__text">30 Tage Rückgabe</span>
+      </div>
+      <div class="usp-bar__item">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M2 12h20"/></svg>
+        <span class="usp-bar__text">Klimaneutraler Versand</span>
+      </div>
+      <div class="usp-bar__item">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
+        <span class="usp-bar__text">TÜV-zertifizierte Werkstatt</span>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+<style>
+  .usp-bar{background:var(--color-header);color:#fff;border-bottom:1px solid rgba(255,255,255,.06)}
+  .usp-bar__inner{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);align-items:center;justify-content:center;min-height:36px;padding:6px 0;gap:0}
+  .usp-bar__item{display:flex;align-items:center;justify-content:center;gap:8px;padding:4px 14px;font-size:.7rem;font-weight:600;letter-spacing:.04em;color:rgba(255,255,255,.92)}
+  .usp-bar__item:not(:last-child){border-right:1px solid rgba(255,255,255,.12)}
+  .usp-bar__item svg{color:var(--color-accent);flex-shrink:0}
+  .usp-bar__text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  @media(max-width:900px){.usp-bar__inner{grid-auto-flow:row;grid-template-columns:repeat(2,1fr);gap:4px 0}.usp-bar__item{padding:4px 8px;border-right:0!important}.usp-bar__item:nth-child(odd){border-right:1px solid rgba(255,255,255,.12)}}
+  @media(max-width:520px){.usp-bar__inner{grid-template-columns:1fr}.usp-bar__item{border-right:0!important}}
+</style>
+
+{% schema %}
+{
+  "name": "USP-Leiste",
+  "max_blocks": 6,
+  "settings": [],
+  "blocks": [
+    {
+      "type": "usp",
+      "name": "Vorteil",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Text", "default": "Versandkostenfrei ab 99 €" },
+        { "type": "text", "id": "icon", "label": "SVG (optional)", "info": "Optionalen SVG-Code hier einfügen oder leer lassen für Standard-Icon." }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "usp", "settings": { "text": "Versandkostenfrei ab 99 €" } },
+      { "type": "usp", "settings": { "text": "30 Tage Rückgabe" } },
+      { "type": "usp", "settings": { "text": "Klimaneutraler Versand" } },
+      { "type": "usp", "settings": { "text": "TÜV-zertifizierte Werkstatt" } }
+    ]
+  }
+}
+{% endschema %}

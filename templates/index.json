@@ -9,6 +9,7 @@
  */
 {
   "sections": {
+    "usp-bar": { "type": "usp-bar", "settings": {} },
     "hero": {
       "type": "hero",
       "blocks": {
@@ -411,6 +412,7 @@
     }
   },
   "order": [
+    "usp-bar",
     "hero",
     "choose-bike",
     "men-women",

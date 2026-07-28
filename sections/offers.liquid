@@ -1,14 +1,24 @@
 <section class="offers section-spacing">
   <div class="container">
     <header class="section-heading section-heading--center">
-      <p class="eyebrow">Special Pricing</p>
-      <h2>Special offers</h2>
-      <p class="section-heading__sub">Special offers open with the shop</p>
+      <p class="eyebrow">{{ section.settings.eyebrow | default: 'Special Pricing' }}</p>
+      <h2>{{ section.settings.heading | default: 'Special offers' }}</h2>
+      <p class="section-heading__sub">{{ section.settings.subtitle | default: 'Sparen Sie heute – kuratiert und zeitlich begrenzt' }}</p>
     </header>
     <div class="offers__grid">
       {% for block in section.blocks %}
-        <article class="offer{% if block.settings.ending_at != blank %} offer--countdown{% endif %}" {{ block.shopify_attributes }}>
-          <span class="offer__price">${{ block.settings.price }}</span>
+        {% assign current_price = block.settings.price | times: 1 %}
+        {% assign original_price = block.settings.compare_at_price | times: 1 %}
+        {% assign saving = 0 %}
+        {% if original_price > 0 and current_price > 0 and original_price > current_price %}
+          {% assign saving = original_price | minus: current_price | times: 100 | divided_by: original_price %}
+        {% endif %}
+        <article class="offer{% if block.settings.ending_at != blank %} offer--countdown{% endif %}{% if saving > 0 %} offer--discount{% endif %}" {{ block.shopify_attributes }}>
+          {% if saving > 0 %}<span class="offer__ribbon">−{{ saving }}%</span>{% endif %}
+          <span class="offer__price">
+            <strong>${{ current_price }}</strong>
+            {% if original_price > 0 and saving > 0 %}<s>${{ original_price }}</s>{% endif %}
+          </span>
           <h3>{{ block.settings.name }}</h3>
           <p class="offer__expires">{{ block.settings.expires }}</p>
           {% if block.settings.ending_at != blank %}
@@ -19,7 +29,7 @@
               <span class="countdown__cell"><b data-countdown-seconds>00</b><em>Sek</em></span>
             </div>
           {% endif %}
-          <a class="offer__cta" href="{{ block.settings.link }}">Shop now ↗</a>
+          <a class="offer__cta" href="{{ block.settings.link }}">Jetzt zugreifen ↗</a>
         </article>
       {% endfor %}
     </div>
@@ -30,27 +40,31 @@
 {
   "name": "Sonderangebote",
   "max_blocks": 6,
-  "settings": [],
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "text", "id": "heading", "label": "Überschrift" },
+    { "type": "text", "id": "subtitle", "label": "Untertitel" }
+  ],
   "blocks": [
     {
       "type": "offer",
       "name": "Angebot",
       "settings": [
         { "type": "text", "id": "name", "label": "Produkt", "default": "Panzerro 440" },
-        { "type": "text", "id": "price", "label": "Preis", "default": "250" },
-        { "type": "text", "id": "expires", "label": "Gültig bis", "default": "Expires Feb 21" },
+        { "type": "text", "id": "price", "label": "Aktueller Preis", "default": "250" },
+        { "type": "text", "id": "compare_at_price", "label": "Originalpreis (für Ersparnis)", "default": "340", "info": "Wenn leer, erscheint kein Rabatt-Badge." },
+        { "type": "text", "id": "expires", "label": "Gültig bis", "default": "Nur noch diese Woche" },
         { "type": "text", "id": "ending_at", "label": "Countdown endet am (YYYY-MM-DDTHH:MM)", "info": "Wenn leer, wird kein Countdown angezeigt. Beispiel: 2025-12-31T23:59" },
         { "type": "url", "id": "link", "label": "Link" }
       ]
     }
   ],
-  "presets": [{
-    "name": "Sonderangebote",
+  "default": {
     "blocks": [
-      { "type": "offer", "settings": { "name": "Panzerro 440", "price": "250" } },
-      { "type": "offer", "settings": { "name": "Panzerro 420", "price": "208" } },
-      { "type": "offer", "settings": { "name": "Panzerro 400", "price": "210" } }
+      { "type": "offer", "settings": { "name": "Panzerro 440", "price": "250", "compare_at_price": "340" } },
+      { "type": "offer", "settings": { "name": "Panzerro 420", "price": "208", "compare_at_price": "280" } },
+      { "type": "offer", "settings": { "name": "Panzerro 400", "price": "210", "compare_at_price": "290" } }
     ]
-  }]
+  }
 }
 {% endschema %}
