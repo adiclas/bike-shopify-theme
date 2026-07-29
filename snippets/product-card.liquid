@@ -1,27 +1,94 @@
-<article class="product-card{% unless product.available %} product-card--sold-out{% endunless %}">
+{%- liquid
+  assign sold_out = false
+  if product.available == false
+    assign sold_out = true
+  endif
+  assign has_sale = false
+  if product.compare_at_price_max > product.price
+    assign has_sale = true
+  endif
+  assign discount = 0
+  if has_sale and product.compare_at_price_max > 0
+    assign discount = product.compare_at_price_max | minus: product.price | times: 100 | divided_by: product.compare_at_price_max | round
+  endif
+-%}
+<article class="product-card{% if sold_out %} product-card--sold-out{% endif %}{% if has_sale %} product-card--sale{% endif %}">
   <a class="product-card__media" href="{{ product.url }}" aria-label="{{ product.title | escape }}">
-    {% if product.compare_at_price_max > product.price and product.available %}
-      <span class="product-card__badge">-{{ product.compare_at_price_max | minus: product.price | times: 100.0 | divided_by: product.compare_at_price_max | round }}%</span>
-    {% endif %}
+    {%- if has_sale and sold_out == false -%}
+      <span class="product-card__badge">−{{ discount }}%</span>
+    {%- endif -%}
+    {%- if sold_out -%}
+      <span class="product-card__status-badge">Ausverkauft</span>
+    {%- endif -%}
     {% if product.featured_image != blank %}
-      {{ product.featured_image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '300,500,700,900', class: 'product-card__image', alt: product.featured_image.alt | default: product.title }}
       {% if product.images.size > 1 %}
-        {{ product.images[1] | image_url: width: 900 | image_tag: loading: 'lazy', widths: '300,500,700,900', class: 'product-card__image product-card__image--hover', alt: product.images[1].alt | default: product.title }}
+        <div class="product-card__rotator" data-rotator data-rotator-autoplay="3500" data-rotator-pause-hover="true">
+          {% for image in product.images limit: 4 %}
+            {% if forloop.first %}
+              {{ image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '300,500,700,900', alt: image.alt | default: product.title, class: 'product-card__image is-active', sizes: '(min-width: 760px) 25vw, 50vw' }}
+            {% else %}
+              {{ image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '300,500,700,900', alt: image.alt | default: product.title, class: 'product-card__image', sizes: '(min-width: 760px) 25vw, 50vw' }}
+            {% endif %}
+          {% endfor %}
+          <ol class="product-card__dots" role="tablist" aria-label="Produktbilder">
+            {% for image in product.images limit: 4 %}
+              <li><button type="button" data-rotator-go="{{ forloop.index0 }}" class="product-card__dot{% if forloop.first %} is-active{% endif %}" aria-label="Bild {{ forloop.index }} anzeigen"></button></li>
+            {% endfor %}
+          </ol>
+        </div>
+      {% else %}
+        {{ product.featured_image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '300,500,700,900', alt: product.featured_image.alt | default: product.title, class: 'product-card__image', sizes: '(min-width: 760px) 25vw, 50vw' }}
       {% endif %}
+      <div class="product-card__overlay">
+        <div class="product-card__actions">
+          <span class="product-card__action-chip">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
+            Quick view
+          </span>
+          <button type="button" class="product-card__action-chip product-card__action-wishlist" data-wishlist-toggle="{{ product.id }}" aria-label="Zur Wunschliste hinzufügen">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/></svg>
+          </button>
+        </div>
+      </div>
     {% else %}
-      <div class="product-card__placeholder">{{ 'product-1' | placeholder_svg_tag }}</div>
+      <div class="product-card__placeholder">
+        <svg viewBox="0 0 64 40" width="56" height="36" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="6" y="10" width="52" height="24" rx="3"/><circle cx="22" cy="22" r="4"/><circle cx="42" cy="22" r="4"/><path d="M6 18h6l4-4 8 6 6-6 8 4"/></svg>
+        <p>Produktbild folgt</p>
+      </div>
     {% endif %}
   </a>
   <div class="product-card__body">
     {% if product.vendor != blank %}<p class="product-card__vendor">{{ product.vendor }}</p>{% endif %}
-    <h3 class="product-card__title"><a href="{{ product.url }}">{{ product.title }}</a></h3>
-    <p class="product-card__price">
-      {% if product.price_varies %}Ab {% endif %}<strong>{{ product.price | money }}</strong>
-      {% if product.compare_at_price_max > product.price %}<s>{{ product.compare_at_price_max | money }}</s>{% endif %}
-    </p>
-    <div class="product-card__footer">
-      <span class="product-card__status">{% if product.available %}Sofort verfügbar{% else %}Ausverkauft{% endif %}</span>
-      <a class="product-card__arrow" href="{{ product.url }}" aria-label="{{ product.title | escape }} ansehen">↗</a>
+    <h3 class="product-card__title"><a href="{{ product.url }}">{{ product.title | escape }}</a></h3>
+    {% if product.type != blank %}<p class="product-card__type">{{ product.type }}</p>{% endif %}
+    <div class="product-card__price">
+      {% if product.price_varies %}<span class="product-card__price-from">Ab</span>{% endif %}
+      <strong>{{ product.price | money }}</strong>
+      {% if has_sale %}<s>{{ product.compare_at_price_max | money }}</s>{% endif %}
     </div>
+    {% if has_sale %}<p class="product-card__saving">Sie sparen {{ product.compare_at_price_max | minus: product.price | money }}</p>{% endif %}
+    <div class="product-card__footer">
+      {% if sold_out %}
+        <span class="product-card__status product-card__status--out">Ausverkauft</span>
+      {% else %}
+        <span class="product-card__status">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-10"/></svg>
+          Sofort verfügbar
+        </span>
+      {% endif %}
+      <a class="product-card__arrow" href="{{ product.url }}" aria-label="{{ product.title | escape }} ansehen">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+    {%- if sold_out == false -%}
+      <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data" class="product-card__add-form" data-product-add-form>
+        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+        <input type="hidden" name="quantity" value="1">
+        <button type="submit" class="product-card__add" aria-label="In den Warenkorb">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 7h14l-1.5 10.2a2 2 0 0 1-2 1.8H8.5a2 2 0 0 1-2-1.8L5 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg>
+          In den Warenkorb
+        </button>
+      </form>
+    {%- endif -%}
   </div>
 </article>

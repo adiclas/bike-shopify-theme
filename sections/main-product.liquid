@@ -1,18 +1,35 @@
 <section class="main-product section-spacing" data-product-section data-product-id="{{ product.id }}" data-product-title="{{ product.title | escape }}" data-product-vendor="{{ product.vendor | escape }}" data-product-image="{{ product.featured_image | image_url: width: 800 | escape }}" data-product-price="{{ product.price | money | escape }}" data-product-url="{{ product.url }}">
   <script>document.body.dataset.currentProductId='{{ product.id }}';document.dispatchEvent(new CustomEvent('recently-viewed:track',{detail:{id:'{{ product.id }}',url:'{{ product.url }}',title:{{ product.title | json }},vendor:{{ product.vendor | json }},price:{{ product.price | money | json }},image:{{ product.featured_image | image_url: width: 800 | json }}}}));</script>
   <div class="container product-layout">
-    <div class="product-gallery" data-product-gallery data-product-media="{{ product.media | json | escape }}">
-      <button type="button" class="product-gallery__zoom-hint" data-zoom-hint hidden aria-label="Bild vergrößern">
-        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 9l4 4-4 4M19 9l-4 4 4 4"/></svg>
-      </button>
-      {% for media in product.media %}
-        <button type="button" class="product-gallery__item{% if forloop.first %} product-gallery__item--main{% endif %}" data-gallery-item data-media-index="{{ forloop.index0 }}">
-          {{ media.preview_image | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '500,900,1200,1600', alt: media.alt | default: product.title, class: 'product-gallery__image' }}
-          <span class="visually-hidden">Bild {{ forloop.index }} öffnen</span>
+    <div class="product-gallery{% if product.media.size > 1 %} product-gallery--has-thumbs{% endif %}" data-product-gallery data-product-media="{{ product.media | json | escape }}">
+      {% if product.media.size > 1 %}
+        <ol class="product-gallery__thumbs" role="tablist" aria-label="Produktbilder">
+          {% for media in product.media %}
+            <li>
+              <button type="button" data-gallery-thumb="{{ forloop.index0 }}" class="product-gallery__thumb{% if forloop.first %} is-active{% endif %}" aria-label="Bild {{ forloop.index }} anzeigen">
+                {{ media.preview_image | image_url: width: 120 | image_tag: loading: 'lazy', widths: '80,120,160', alt: media.alt | default: product.title }}
+              </button>
+            </li>
+          {% endfor %}
+        </ol>
+      {% endif %}
+      <div class="product-gallery__stage">
+        <button type="button" class="product-gallery__zoom-hint" data-zoom-hint hidden aria-label="Bild vergrößern">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 9l4 4-4 4M19 9l-4 4 4 4"/></svg>
         </button>
-      {% else %}
-        <div class="product-gallery__placeholder">Produktbild</div>
-      {% endfor %}
+        {% for media in product.media %}
+          <button type="button" class="product-gallery__item{% if forloop.first %} product-gallery__item--main{% endif %}" data-gallery-item data-media-index="{{ forloop.index0 }}">
+            {{ media.preview_image | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '500,900,1200,1600', alt: media.alt | default: product.title, class: 'product-gallery__image' }}
+            <span class="visually-hidden">Bild {{ forloop.index }} öffnen</span>
+          </button>
+        {% else %}
+          <div class="product-gallery__placeholder">Produktbild</div>
+        {% endfor %}
+        {% if product.media.size > 1 %}
+          <button type="button" class="product-gallery__nav product-gallery__nav--prev" data-gallery-prev aria-label="Vorheriges Bild">‹</button>
+          <button type="button" class="product-gallery__nav product-gallery__nav--next" data-gallery-next aria-label="Nächstes Bild">›</button>
+        {% endif %}
+      </div>
     </div>
     <div class="product-info">
       {% if product.vendor != blank %}<p class="eyebrow">{{ product.vendor }}</p>{% endif %}
@@ -196,8 +213,27 @@
       document.body.classList.remove('lightbox-open');
     };
     document.querySelectorAll('[data-gallery-item]').forEach((item) => {
-      item.addEventListener('click', () => open(parseInt(item.dataset.mediaIndex, 10)));
+      item.addEventListener('click', () => {
+        const index = parseInt(item.dataset.mediaIndex, 10);
+        switchMain(index);
+        open(index);
+      });
     });
+    document.querySelectorAll('[data-gallery-thumb]').forEach((thumb) => {
+      thumb.addEventListener('click', () => switchMain(parseInt(thumb.dataset.galleryThumb, 10)));
+    });
+    document.querySelector('[data-gallery-prev]')?.addEventListener('click', () => switchMain(Math.max(0, currentMain - 1)));
+    document.querySelector('[data-gallery-next]')?.addEventListener('click', () => switchMain(Math.min(media.length - 1, currentMain + 1)));
+    let currentMain = 0;
+    const switchMain = (index) => {
+      const gallery = document.querySelector('[data-product-gallery]');
+      if (!gallery) return;
+      const items = gallery.querySelectorAll('[data-gallery-item]');
+      const thumbs = gallery.querySelectorAll('[data-gallery-thumb]');
+      items.forEach((item, i) => item.classList.toggle('product-gallery__item--main', i === index));
+      thumbs.forEach((thumb, i) => thumb.classList.toggle('is-active', i === index));
+      currentMain = index;
+    };
     document.querySelector('[data-lightbox-close]')?.addEventListener('click', close);
     document.querySelector('[data-lightbox-prev]')?.addEventListener('click', () => open(currentIndex - 1));
     document.querySelector('[data-lightbox-next]')?.addEventListener('click', () => open(currentIndex + 1));

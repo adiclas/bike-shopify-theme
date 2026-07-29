@@ -15,12 +15,20 @@
         {% endif %}
         <article class="offer{% if block.settings.ending_at != blank %} offer--countdown{% endif %}{% if saving > 0 %} offer--discount{% endif %}" {{ block.shopify_attributes }}>
           {% if saving > 0 %}<span class="offer__ribbon">−{{ saving }}%</span>{% endif %}
-          <span class="offer__price">
-            <strong>${{ current_price }}</strong>
-            {% if original_price > 0 and saving > 0 %}<s>${{ original_price }}</s>{% endif %}
-          </span>
-          <h3>{{ block.settings.name }}</h3>
-          <p class="offer__expires">{{ block.settings.expires }}</p>
+          {% if block.settings.ending_at != blank %}
+            <span class="offer__urgency" aria-label="Sale endet bald">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v6l4 2"/></svg>
+              Endet in
+            </span>
+          {% endif %}
+          <header class="offer__heading">
+            <h3>{{ block.settings.name }}</h3>
+            {% if original_price > 0 and saving > 0 %}<p class="offer__saving">Sie sparen {{ original_price | minus: current_price }}&nbsp;€</p>{% endif %}
+          </header>
+          <div class="offer__price">
+            <strong>{{ current_price }}&nbsp;€</strong>
+            {% if original_price > 0 and saving > 0 %}<s>{{ original_price }}&nbsp;€</s>{% endif %}
+          </div>
           {% if block.settings.ending_at != blank %}
             <div class="countdown" data-countdown data-countdown-end="{{ block.settings.ending_at }}" aria-live="off">
               <span class="countdown__cell"><b data-countdown-days>0</b><em>Tage</em></span>
@@ -28,8 +36,13 @@
               <span class="countdown__cell"><b data-countdown-minutes>00</b><em>Min</em></span>
               <span class="countdown__cell"><b data-countdown-seconds>00</b><em>Sek</em></span>
             </div>
+          {% else %}
+            <p class="offer__expires">{{ block.settings.expires }}</p>
           {% endif %}
-          <a class="offer__cta" href="{{ block.settings.link }}">Jetzt zugreifen ↗</a>
+          <a class="offer__cta" href="{{ block.settings.link }}">
+            Jetzt zugreifen
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
         </article>
       {% endfor %}
     </div>

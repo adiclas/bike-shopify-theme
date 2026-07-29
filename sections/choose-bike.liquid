@@ -19,7 +19,22 @@
             {% if col.settings.collection != blank and col.settings.collection.products_count > 0 %}
               {% assign first = col.settings.collection.products.first %}
               <a class="choose-bike__card" href="{{ col.settings.collection.url }}">
-                {% if first.featured_image != blank %}{{ first.featured_image | image_url: width: 800 | image_tag: loading: 'lazy', widths: '400,600,800', alt: col.settings.title }}{% endif %}
+                {% if first.images.size > 1 %}
+                  <div class="product-card__rotator" data-rotator data-rotator-autoplay="4000" data-rotator-pause-hover="true">
+                    {% for image in first.images limit: 4 %}
+                      {% if forloop.first %}
+                        {{ image | image_url: width: 800 | image_tag: loading: 'lazy', widths: '400,600,800', alt: col.settings.title, class: 'choose-bike__image is-active' }}
+                      {% else %}
+                        {{ image | image_url: width: 800 | image_tag: loading: 'lazy', widths: '400,600,800', alt: col.settings.title, class: 'choose-bike__image' }}
+                      {% endif %}
+                    {% endfor %}
+                    <ol class="product-card__dots" role="tablist" aria-label="Produktbilder">
+                      {% for image in first.images limit: 4 %}<li><button type="button" data-rotator-go="{{ forloop.index0 }}" class="product-card__dot{% if forloop.first %} is-active{% endif %}" aria-label="Bild {{ forloop.index }} anzeigen"></button></li>{% endfor %}
+                    </ol>
+                  </div>
+                {% elsif first.featured_image != blank %}
+                  {{ first.featured_image | image_url: width: 800 | image_tag: loading: 'lazy', widths: '400,600,800', alt: col.settings.title, class: 'choose-bike__image' }}
+                {% endif %}
                 <div class="choose-bike__overlay"></div>
                 <div class="choose-bike__meta"><span>{{ col.settings.eyebrow }}</span><h3>{{ col.settings.title }}</h3><b>Entdecken ↗</b></div>
               </a>

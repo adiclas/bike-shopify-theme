@@ -9,6 +9,32 @@ function toggleMenu(force) {
   toggles.forEach((toggle) => toggle.setAttribute('aria-expanded', String(open)));
 }
 
+if ('IntersectionObserver' in window) {
+  const rotatorObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      const rotator = entry.target;
+      const interval = parseInt(rotator.dataset.rotatorAutoplay, 10) || 3500;
+      const pauseOnHover = rotator.dataset.rotatorPauseHover === 'true';
+      const images = rotator.querySelectorAll(':scope > img');
+      const dots = rotator.querySelectorAll('[data-rotator-go]');
+      if (images.length < 2) return;
+      let index = Array.from(images).findIndex((img) => img.classList.contains('is-active'));
+      if (index < 0) { images[0].classList.add('is-active'); dots[0]?.classList.add('is-active'); index = 0; }
+      let timer = null;
+      const start = () => { stop(); timer = setInterval(() => { images[index].classList.remove('is-active'); dots[index]?.classList.remove('is-active'); index = (index + 1) % images.length; images[index].classList.add('is-active'); dots[index]?.classList.add('is-active'); }, interval); };
+      const stop = () => { if (timer) clearInterval(timer); timer = null; };
+      const reset = () => { stop(); start(); };
+      if (entry.isIntersecting) start(); else stop();
+      dots.forEach((dot) => dot.addEventListener('click', () => { images.forEach((img, i) => img.classList.toggle('is-active', i === parseInt(dot.dataset.rotatorGo, 10))); dots.forEach((d, i) => d.classList.toggle('is-active', i === parseInt(dot.dataset.rotatorGo, 10))); index = parseInt(dot.dataset.rotatorGo, 10); reset(); }));
+      if (pauseOnHover) {
+        const card = rotator.closest('.product-card, .choose-bike__card, .blog__post, .offer');
+        if (card) { card.addEventListener('mouseenter', stop); card.addEventListener('mouseleave', start); card.addEventListener('focusin', stop); card.addEventListener('focusout', start); }
+      }
+    });
+  }, { threshold: 0.35 });
+  document.querySelectorAll('[data-rotator]').forEach((el) => rotatorObserver.observe(el));
+}
+
 toggles.forEach((toggle) => toggle.addEventListener('click', () => toggleMenu()));
 document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape') toggleMenu(false);
@@ -319,3 +345,42 @@ window.addEventListener('storage', (event) => {
   if (event.key === favoritesKey) updateFavoritesCount();
 });
 }
+
+const cartAddForms = document.querySelectorAll("[data-product-add-form]");
+cartAddForms.forEach((form) => {
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const button = form.querySelector("button");
+    if (!button) return;
+    const original = button.innerHTML;
+    button.disabled = true;
+    button.textContent = "…";
+    try {
+      const data = new FormData(form);
+      const endpoint = (window.Shopify && window.Shopify.routes && window.Shopify.routes.cart_add_url) || "/cart/add.js";
+      const response = await fetch(endpoint, { method: "POST", body: data, headers: { Accept: "application/json" } });
+      if (!response.ok) throw new Error("cart add failed");
+      const cart = await fetch("/cart.js").then((r) => r.json()).catch(() => null);
+      document.dispatchEvent(new CustomEvent("cart:change", { detail: { cart } }));
+      button.textContent = "✓";
+      setTimeout(() => { button.innerHTML = original; button.disabled = false; }, 1400);
+    } catch (error) {
+      button.textContent = "Fehler";
+      setTimeout(() => { button.innerHTML = original; button.disabled = false; }, 1800);
+    }
+  });
+});
+
+document.querySelectorAll("[data-wishlist-toggle]").forEach((toggle) => {
+  toggle.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    const id = toggle.dataset.wishlistToggle;
+    const list = getFavorites().filter((t) => String(t) !== String(id));
+    list.unshift(id);
+    try { localStorage.setItem(favoritesKey, JSON.stringify(list.slice(0, 12))); } catch (e) {}
+    toggle.classList.add("is-active");
+    document.dispatchEvent(new CustomEvent("favorites:change"));
+  });
+});
+
