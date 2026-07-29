@@ -13,9 +13,22 @@
     "sections": {
       "announcement-bar": {
         "type": "announcement-bar",
+        "blocks": {
+          "message_yCMRHX": {
+            "type": "message",
+            "settings": {
+              "eyebrow": "Aktuell",
+              "text": "Kostenloser Versand ab 99 €",
+              "link": ""
+            }
+          }
+        },
+        "block_order": [
+          "message_yCMRHX"
+        ],
         "settings": {
-          "enabled": true,
-          "text": "Kostenloser Versand ab 99 € · 30 Tage Rückgaberecht"
+          "text": "Kostenloser Versand ab 99 € · 30 Tage Rückgaberecht;asdasd",
+          "interval": 5
         }
       },
       "header": {
