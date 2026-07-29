@@ -14,7 +14,15 @@
       "announcement-bar": {
         "type": "announcement-bar",
         "blocks": {
-          "message_yCMRHX": {
+          "message_fK773w": {
+            "type": "message",
+            "settings": {
+              "eyebrow": "Aktuell",
+              "text": "Kostenloser Versand ab 99 €",
+              "link": ""
+            }
+          },
+          "message_e6XEYk": {
             "type": "message",
             "settings": {
               "eyebrow": "Aktuell",
@@ -24,10 +32,11 @@
           }
         },
         "block_order": [
-          "message_yCMRHX"
+          "message_fK773w",
+          "message_e6XEYk"
         ],
         "settings": {
-          "text": "Kostenloser Versand ab 99 € · 30 Tage Rückgaberecht;asdasd",
+          "text": "Kostenloser Versand ab 99 € · 30 Tage Rückgaberecht,",
           "interval": 5
         }
       },
